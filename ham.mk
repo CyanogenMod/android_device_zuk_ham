@@ -174,10 +174,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
 
-# Set default USB interface
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-     persist.sys.usb.config=mtp
-
 # Data
 PRODUCT_PACKAGES += \
     librmnetctl \
