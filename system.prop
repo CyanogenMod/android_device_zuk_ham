@@ -1,0 +1,25 @@
+#
+# system.prop for ham
+#
+
+ro.sf.lcd_density=480
+rild.libpath=/system/vendor/lib/libril-qc-qmi-1.so
+persist.radio.add_power_save=1
+persist.radio.apm_sim_not_pwdn=1
+rol.ril.ext.ecclist=112,911,999,110,122,119,120,000,08,118
+
+# sensors
+ro.qc.sdk.camera.facialproc=true
+ro.qc.sdk.gestures.camera=false
+ro.qti.sdk.sensors.gestures=true
+ro.qti.sensors.bte=true
+ro.qti.sensors.gtap=true
+ro.qti.sensors.ir_proximity=true
+ro.qti.sensors.vmd=true
+
+# gps
+persist.gps.qc_nlp_in_use=0
+ro.gps.agps_provider=1
+
+# cabl is handled by the panel
+ro.qualcomm.cabl=0

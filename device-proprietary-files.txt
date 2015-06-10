@@ -1,0 +1,37 @@
+# Audio
+/system/lib/libtfa98xx.so
+
+# Camera
+lib/hw/camera.msm8974.so
+vendor/lib/libchromatix_imx214_common.so
+vendor/lib/libchromatix_imx214_default_video.so
+vendor/lib/libchromatix_imx214_hfr_120.so
+vendor/lib/libchromatix_imx214_hfr_60.so
+vendor/lib/libchromatix_imx214_lg_common.so
+vendor/lib/libchromatix_imx214_lg_default_video.so
+vendor/lib/libchromatix_imx214_lg_hfr_120.so
+vendor/lib/libchromatix_imx214_lg_hfr_60.so
+vendor/lib/libchromatix_imx214_lg_preview.so
+vendor/lib/libchromatix_imx214_lg_snapshot.so
+vendor/lib/libchromatix_imx214_preview.so
+vendor/lib/libchromatix_imx214_snapshot.so
+vendor/lib/libchromatix_ov8865_q8v18a_common.so
+vendor/lib/libchromatix_ov8865_q8v18a_default_video.so
+vendor/lib/libchromatix_ov8865_q8v18a_hfr_120fps.so
+vendor/lib/libchromatix_ov8865_q8v18a_hfr_60fps.so
+vendor/lib/libchromatix_ov8865_q8v18a_hfr_90fps.so
+vendor/lib/libchromatix_ov8865_q8v18a_liveshot.so
+vendor/lib/libchromatix_ov8865_q8v18a_preview.so
+vendor/lib/libchromatix_ov8865_q8v18a_snapshot.so
+vendor/lib/libchromatix_ov8865_q8v18a_video_hd.so
+vendor/lib/libchromatix_ov8865_q8v18a_zsl.so
+vendor/lib/libchromatix_ov8865_sunny_common.so
+vendor/lib/libchromatix_ov8865_sunny_default_video.so
+vendor/lib/libchromatix_ov8865_sunny_hfr_120fps.so
+vendor/lib/libchromatix_ov8865_sunny_hfr_60fps.so
+vendor/lib/libchromatix_ov8865_sunny_hfr_90fps.so
+vendor/lib/libchromatix_ov8865_sunny_liveshot.so
+vendor/lib/libchromatix_ov8865_sunny_preview.so
+vendor/lib/libchromatix_ov8865_sunny_snapshot.so
+vendor/lib/libchromatix_ov8865_sunny_video_hd.so
+vendor/lib/libchromatix_ov8865_sunny_zsl.so
