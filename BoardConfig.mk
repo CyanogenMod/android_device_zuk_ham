@@ -48,7 +48,7 @@ BOARD_KERNEL_SEPARATED_DT := true
 TARGET_KERNEL_ARCH := arm
 BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x3b6 ehci-hcd.park=3 androidboot.bootdevice=msm_sdcc.1 vmalloc=480M androidboot.selinux=permissive
 TARGET_KERNEL_SOURCE := kernel/zuk/ham
-TARGET_KERNEL_CONFIG := k9_defconfig
+TARGET_KERNEL_CONFIG := cyanogenmod_k9_defconfig
 
 # QCOM
 BOARD_USES_QCOM_HARDWARE := true
