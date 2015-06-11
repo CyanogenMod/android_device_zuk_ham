@@ -158,6 +158,17 @@ on boot
     # Set the default message loglevel to KERN_INFO
     write /proc/sys/kernel/printk "6 6 1 7"
 
+    # Lights
+    chown system system /sys/class/leds/button-backlight/brightness
+    chown system system /sys/class/leds/button-backlight2/brightness
+    chown system system /sys/class/leds/torch-light1/brightness
+    chown system system /sys/class/leds/led:rgb_red/brightness
+    chown system system /sys/class/leds/led:rgb_green/brightness
+    chown system system /sys/class/leds/led:rgb_blue/brightness
+    chown system system /sys/class/leds/led:rgb_red/rgbbreath
+    chown system system /sys/class/leds/led:rgb_green/rgbbreath
+    chown system system /sys/class/leds/led:rgb_blue/rgbbreath
+
 # msm specific files that need to be created on /data
 on post-fs-data
     mkdir /data/media 0770 media_rw media_rw
