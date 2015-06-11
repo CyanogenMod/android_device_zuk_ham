@@ -8,6 +8,9 @@ persist.radio.add_power_save=1
 persist.radio.apm_sim_not_pwdn=1
 rol.ril.ext.ecclist=112,911,999,110,122,119,120,000,08,118
 
+# enable multisim
+persist.radio.multisim.config=dsds
+
 # sensors
 ro.qc.sdk.camera.facialproc=true
 ro.qc.sdk.gestures.camera=false
