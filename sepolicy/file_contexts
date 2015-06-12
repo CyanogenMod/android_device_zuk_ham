@@ -9,3 +9,6 @@
 
 /persist/.genmac                                u:object_r:wifi_data_file:s0
 /persist/.bt_nv.bin                             u:object_r:bluetooth_data_file:s0
+/persist/sns.reg                                u:object_r:sensors_persist_file:s0
+
+/dev/tfa9890                                    u:object_r:audio_device:s0
