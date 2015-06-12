@@ -33,12 +33,10 @@ PRODUCT_PACKAGES += \
     init.qcom.bt.sh \
     init.qcom-common.rc \
     ueventd.qcom.rc \
-    libinit_ham \
-    fstab.ham \
-    init.ham.rc \
+    fstab.qcom \
+    init.qcom.rc \
     init.qcom.usb.rc \
-    init.recovery.qcom.rc \
-    ueventd.ham.rc
+    init.recovery.qcom.rc
 
 # Audio
 PRODUCT_COPY_FILES += \
