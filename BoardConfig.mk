@@ -50,8 +50,6 @@ BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=qcom user
 TARGET_KERNEL_SOURCE := kernel/zuk/ham
 TARGET_KERNEL_CONFIG := cyanogenmod_k9_defconfig
 
-BOARD_AUDIO_AMPLIFIER := device/zuk/ham/libaudioamp
-
 # QCOM
 BOARD_USES_QCOM_HARDWARE := true
 
