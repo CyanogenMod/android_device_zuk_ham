@@ -25,9 +25,6 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay vendor/extra/overlays/phone-108
 TARGET_SCREEN_HEIGHT := 1920
 TARGET_SCREEN_WIDTH := 1080
 
-# Haters gonna hate..
-PRODUCT_CHARACTERISTICS := nosdcard
-
 # Ramdisk
 PRODUCT_PACKAGES += \
     init.qcom.bt.sh \
