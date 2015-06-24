@@ -179,4 +179,7 @@ include device/qcom/sepolicy/sepolicy.mk
 BOARD_SEPOLICY_DIRS += \
     device/zuk/ham/sepolicy
 
+BOARD_SEPOLICY_UNION += \
+    fingerprint.te
+
 -include vendor/zuk/ham/BoardConfigVendor.mk

@@ -15,3 +15,7 @@
 
 /sys/devices/virtual/touch/tp_dev/key_enable    u:object_r:touchpanel_sysfs:s0
 /sys/devices/gpio_keys.84/disabled_keys         u:object_r:touchpanel_sysfs:s0
+
+/sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/enable_navi u:object_r:fingerprint_sysfs:s0
+/system/vendor/bin/fingerprint_client                              u:object_r:fingerprint_exec:s0
+/dev/socket/fpd                                                    u:object_r:fingerprint_socket:s0

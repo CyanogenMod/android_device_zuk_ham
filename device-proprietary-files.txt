@@ -1,5 +1,5 @@
-# Audio
-/system/lib/libtfa98xx.so
+# Fingerprint
+vendor/bin/fingerprint_client
 
 # Camera
 lib/hw/camera.msm8974.so

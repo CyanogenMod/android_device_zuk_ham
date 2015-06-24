@@ -158,6 +158,24 @@ on boot
     # Set the default message loglevel to KERN_INFO
     write /proc/sys/kernel/printk "6 6 1 7"
 
+    # Fingerprint
+    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/adc_gain
+    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/adc_shift
+    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/capture_col_groups
+    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/capture_col_start
+    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/capture_count
+    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/capture_mode
+    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/capture_row_count
+    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/capture_row_start
+    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/capture_settings_mux
+    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/enable_navi
+    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/force_reset
+    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/gain_shift
+    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/input_mode
+    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/orientation
+    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/pixel_ctrl
+    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/pxl_ctrl
+
     # Lights
     chown system system /sys/class/leds/button-backlight/brightness
     chown system system /sys/class/leds/button-backlight2/brightness
@@ -671,3 +689,9 @@ service ssr_diag /system/bin/ssr_diag
     user system
     group system
     disabled
+
+service fingerprint /system/vendor/bin/fingerprint_client
+     class main
+     socket fpd stream 0666 system system
+     user system
+     group system
