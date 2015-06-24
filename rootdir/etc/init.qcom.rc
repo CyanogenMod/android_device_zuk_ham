@@ -169,6 +169,12 @@ on boot
     chown system system /sys/class/leds/led:rgb_green/rgbbreath
     chown system system /sys/class/leds/led:rgb_blue/rgbbreath
 
+    # KeyDisabler
+    chown root system /sys/devices/virtual/touch/tp_dev/key_enable
+    chmod 0660 /sys/devices/virtual/touch/tp_dev/key_enable
+    chown root system /sys/bus/platform/drivers/gpio-keys/gpio_keys.84/disabled_keys
+    chmod 0660 /sys/bus/platform/drivers/gpio-keys/gpio_keys.84/disabled_keys
+
 # msm specific files that need to be created on /data
 on post-fs-data
     mkdir /data/media 0770 media_rw media_rw

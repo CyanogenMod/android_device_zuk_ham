@@ -12,3 +12,6 @@
 /persist/sns.reg                                u:object_r:sensors_persist_file:s0
 
 /dev/tfa9890                                    u:object_r:audio_device:s0
+
+/sys/devices/virtual/touch/tp_dev/key_enable    u:object_r:touchpanel_sysfs:s0
+/sys/devices/gpio_keys.84/disabled_keys         u:object_r:touchpanel_sysfs:s0
