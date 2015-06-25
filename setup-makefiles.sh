@@ -4,7 +4,7 @@ VENDOR=zuk
 DEVICE=ham
 OUTDIR=vendor/$VENDOR/$DEVICE
 MAKEFILE=../../../$OUTDIR/$DEVICE-vendor-blobs.mk
-PROPRIETARY_FILES=proprietary-files.txt
+PROPRIETARY_FILES=proprietary-files*.txt
 
 (cat << EOF) > $MAKEFILE
 # Copyright (C) 2015 The CyanogenMod Project
@@ -28,8 +28,8 @@ PRODUCT_COPY_FILES += \\
 EOF
 
 LINEEND=" \\"
-COUNT=`cat $PROPRIETARY_FILES | grep -v ^# | grep -v ^$ | grep ^- | wc -l | awk {'print $1'}`
-for FILE in `cat $PROPRIETARY_FILES | grep -v ^# | grep -v ^$ | grep ^- | sed -e 's|^-||g'`; do
+COUNT=`cat ${PROPRIETARY_FILES}| grep -v ^# | grep -v ^$ | grep ^- | wc -l | awk {'print $1'}`
+for FILE in `cat ${PROPRIETARY_FILES}| grep -v ^# | grep -v ^$ | grep ^- | sed -e 's|^-||g'`; do
     COUNT=`expr $COUNT - 1`
     if [ $COUNT = "0" ]; then
         LINEEND=""

@@ -2,7 +2,7 @@
 
 VENDOR=zuk
 DEVICE=ham
-PROPRIETARY_FILES=proprietary-files.txt
+PROPRIETARY_FILES=proprietary-files*.txt
 
 BASE=../../../vendor/$VENDOR/$DEVICE/proprietary
 rm -rf $BASE/*
