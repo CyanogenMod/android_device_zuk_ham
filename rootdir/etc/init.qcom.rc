@@ -241,6 +241,10 @@ on post-fs-data
 
     mkdir /data/audio/ 0770 media audio
 
+    # Touchscreen
+    chown system system /sys/devices/virtual/touch/tp_dev/gesture_on
+    chmod 0660 /sys/devices/virtual/touch/tp_dev/gesture_on
+
     chown system system /sys/devices/virtual/graphics/fb0/rgb
     chmod 0660 /sys/devices/virtual/graphics/fb0/rgb
 
