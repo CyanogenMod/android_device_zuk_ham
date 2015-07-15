@@ -79,6 +79,9 @@
 -etc/firmware/cpp_firmware_v1_1_6.fw
 -etc/firmware/cpp_firmware_v1_2_0.fw
 
+# Fingerprint
+vendor/bin/fingerprint_client
+
 # TFA9890
 etc/tfa98xx/TFA9890_N1B12_N1C3_v2.config
 etc/tfa98xx/TFA9890_N1C3_2_1_1.patch
