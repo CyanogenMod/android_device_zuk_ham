@@ -23,6 +23,7 @@
  */
 
 #define MAX_ID_NUM 10
+#define MAX_ENROLLMENT_STEPS 20
 
 enum {
     CMD_RESULT_OK = 0,

@@ -22,6 +22,7 @@
 #include <hardware/fingerprint.h>
 
 #include "fpd_sm.h"
+#include "fpd_client.h"
 
 static fpd_sm_t *g_fpd_sm;
 
@@ -113,7 +114,7 @@ static int fingerprint_release_enrollment_info(struct fingerprint_device __unuse
 }
 
 static int fingerprint_get_num_enrollment_steps(struct fingerprint_device __unused *dev) {
-      return 20;
+      return MAX_ENROLLMENT_STEPS;
 }
 
 static int fingerprint_open(const hw_module_t* module, const char __unused *id,

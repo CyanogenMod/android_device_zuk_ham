@@ -251,9 +251,11 @@ void *enroll_func(void *arg_enroll) {
     timeout.tv_sec += args->timeout_sec;
 
     int points[16];
+    int remaining = MAX_ENROLLMENT_STEPS;
 
     // We own the args and don't need them anymore
     free(arg_enroll);
+
 
     for (;;) {
         pthread_mutex_lock(&sm->state_mutex);
@@ -277,7 +279,8 @@ void *enroll_func(void *arg_enroll) {
           int finger = 0;
           int result = fpd_enroll("fp", &finger, points);
           if (result >= 0 && result <= 100) {
-            fpd_sm_notify_enrolled(sm, finger, 100 - result, 0);
+
+            fpd_sm_notify_enrolled(sm, finger, --remaining, 0);
 
             if (result == 100) {
               break;
