@@ -45,6 +45,7 @@ struct fpd_sm {
     fingerprint_notify_t notify;
     pthread_t worker;
     fpd_worker_state_t worker_state;
+    fpd_enrolled_ids_t cached_enrolled_ids;
 };
 
 /* The argument for worker functions.
@@ -192,6 +193,17 @@ void *authenticate_func(void *arg_auth) {
     return NULL;
 }
 
+static void fpd_sm_cache_enrolled_ids(fpd_sm_t *sm) {
+    // During auth/enroll the fingerprint service might ask for a list
+    // of enrolled fingerprints but the daemon won't be available so let's
+    // cache it while we can.
+    memset(&sm->cached_enrolled_ids, 0, sizeof(fpd_enrolled_ids_t));
+    if (fpd_get_enrolled_ids(&sm->cached_enrolled_ids) != CMD_RESULT_OK) {
+        ALOGW("Could not cache enrolled ids, querying fingerprints will "
+            "be unavailable during auth or enrollment");
+    }
+}
+
 fpd_sm_status_t fpd_sm_start_authenticating(fpd_sm_t *sm) {
     fpd_sm_status_t result = FPD_SM_OK;
 
@@ -207,6 +219,8 @@ fpd_sm_status_t fpd_sm_start_authenticating(fpd_sm_t *sm) {
         result = FPD_SM_FAILED;
         goto end;
     }
+
+    fpd_sm_cache_enrolled_ids(sm);
 
     args->sm = sm;
 
@@ -325,6 +339,8 @@ fpd_sm_status_t fpd_sm_start_enrolling(fpd_sm_t *sm, uint32_t timeout_sec) {
         goto end;
     }
 
+    fpd_sm_cache_enrolled_ids(sm);
+
     sm->state = FPD_SM_ENROLLING;
     sm->worker_state = FPD_WORKER_OK;
 
@@ -360,7 +376,7 @@ fpd_sm_status_t fpd_sm_get_enrolled_ids(fpd_sm_t *sm, fpd_enrolled_ids_t *enroll
 
     pthread_mutex_lock(&sm->state_mutex);
     if (sm->state != FPD_SM_IDLE) {
-        result = FPD_SM_ERR_NOT_IDLE;
+        memcpy(enrolled, &sm->cached_enrolled_ids, sizeof(fpd_enrolled_ids_t));
         goto end;
     }
 
@@ -372,7 +388,7 @@ fpd_sm_status_t fpd_sm_get_enrolled_ids(fpd_sm_t *sm, fpd_enrolled_ids_t *enroll
 
 end:
     pthread_mutex_unlock(&sm->state_mutex);
-    return FPD_SM_OK;
+    return result;
 }
 
 fpd_sm_status_t fpd_sm_remove_id_locked(fpd_sm_t *sm, int id) {
