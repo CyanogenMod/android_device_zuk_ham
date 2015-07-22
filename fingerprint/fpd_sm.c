@@ -279,12 +279,13 @@ void *enroll_func(void *arg_enroll) {
           int finger = 0;
           int result = fpd_enroll("fp", &finger, points);
           if (result >= 0 && result <= 100) {
-
-            fpd_sm_notify_enrolled(sm, finger, --remaining, 0);
-
             if (result == 100) {
+              // Always report 0 remaining steps when enrollment completes.
+              fpd_sm_notify_enrolled(sm, finger, 0, 0);
               break;
             }
+
+            fpd_sm_notify_enrolled(sm, finger, --remaining, 0);
 
             // This will never be a busy loop because detect_finger_up sleeps for few
             // milliseconds while it polls the finger.
