@@ -6,6 +6,9 @@
 -vendor/lib/libactuator_rohm_bu63163.so
 -vendor/lib/libactuator_rohm_bu63163_camcorder.so
 -vendor/lib/libactuator_rohm_bu63163_camera.so
+-vendor/lib/libactuator_rohm_bu63163_lg.so
+-vendor/lib/libactuator_rohm_bu63163_lg_camcorder.so
+-vendor/lib/libactuator_rohm_bu63163_lg_camera.so
 -vendor/lib/libchromatix_imx214_common.so
 -vendor/lib/libchromatix_imx214_default_video.so
 -vendor/lib/libchromatix_imx214_hfr_120.so
