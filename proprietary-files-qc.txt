@@ -143,7 +143,6 @@
 -vendor/lib/libqdi.so
 -vendor/lib/libqdp.so
 -vendor/lib/libqmi.so
--vendor/lib/libqmiservices.so
 -vendor/lib/libqmi_cci.so
 -vendor/lib/libqmi_client_qmux.so
 -vendor/lib/libqmi_common_so.so
@@ -201,4 +200,5 @@
 -app/QuickBoot/QuickBoot.apk
 
 # WiFi
+-lib/libwpa_qmi_eap_proxy.so
 -lib/libwcnss_qmi.so
