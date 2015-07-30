@@ -245,3 +245,5 @@
 /sys/devices/virtual/input/input* test 0660 system input
 /sys/devices/virtual/input/input* value 0660 system input
 
+# Factory reset protection
+/dev/block/bootdevice/by-name/frp 0600 system system
