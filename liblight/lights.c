@@ -60,13 +60,13 @@ char const*const BUTTON_FILE[] = {
 };
 
 char const*const RED_BLINK_FILE
-        = "/sys/class/leds/led:rgb_red/rgbbreath";
+        = "/sys/class/leds/led:rgb_red/blink";
 
 char const*const GREEN_BLINK_FILE
-        = "/sys/class/leds/led:rgb_green/rgbbreath";
+        = "/sys/class/leds/led:rgb_green/blink";
 
 char const*const BLUE_BLINK_FILE
-        = "/sys/class/leds/led:rgb_blue/rgbbreath";
+        = "/sys/class/leds/led:rgb_blue/blink";
 
 /**
  * device methods
