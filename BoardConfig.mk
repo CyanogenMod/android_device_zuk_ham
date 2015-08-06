@@ -50,6 +50,12 @@ BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=qcom user
 TARGET_KERNEL_SOURCE := kernel/cyanogen/msm8974
 TARGET_KERNEL_CONFIG := cyanogenmod_k9_defconfig
 
+# Enable DIAG on debug builds
+ifneq ($(TARGET_BUILD_VARIANT),user)
+TARGET_KERNEL_ADDITIONAL_CONFIG:= cyanogenmod_debug_config
+endif
+
+
 # QCOM
 BOARD_USES_QCOM_HARDWARE := true
 
