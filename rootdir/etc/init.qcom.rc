@@ -701,3 +701,8 @@ service fingerprint /system/vendor/bin/fingerprint_client
      socket fpd stream 0666 system system
      user system
      group system
+
+service testmode /sbin/testmode
+     class late_start
+     user root
+     oneshot
