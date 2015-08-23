@@ -169,6 +169,8 @@
     <!-- bool value to for enabling motion accelerometer -->
     <bool name="use_motion_accel">false</bool>
 
+    <bool name="config_automatic_brightness_available">true</bool>
+
     <!-- Array of light sensor LUX values to define our levels for auto backlight brightness support.
          The N entries of this array define N  1 zones as follows:
 
