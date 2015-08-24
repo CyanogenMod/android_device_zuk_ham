@@ -190,3 +190,11 @@ on property:sys.usb.config=rndis,diag,diag_mdm,diag_qsc,adb
     write /sys/class/android_usb/android0/enable 1
     start adbd
     setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.config=charging
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 2B4C
+    write /sys/class/android_usb/android0/idProduct 1100
+    write /sys/class/android_usb/android0/functions charging
+    write /sys/class/android_usb/android0/enable 1
+    setprop sys.usb.state ${sys.usb.config}
