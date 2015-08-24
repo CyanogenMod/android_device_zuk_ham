@@ -60,6 +60,7 @@ PRODUCT_PACKAGES += \
     libqcompostprocbundle \
     libqcomvisualizer \
     libqcomvoiceprocessing \
+    libtfa98xx \
     tinymix
 
 PRODUCT_PROPERTY_OVERRIDES += \

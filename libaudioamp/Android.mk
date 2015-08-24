@@ -9,7 +9,7 @@ LOCAL_C_INCLUDES += \
 
 LOCAL_ADDITIONAL_DEPENDENCIES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
 
-LOCAL_SHARED_LIBRARIES := liblog libutils libcutils libtfa98xx
+LOCAL_SHARED_LIBRARIES := liblog libutils libcutils libdl
 
 LOCAL_SRC_FILES := audio_amplifier.c
 
