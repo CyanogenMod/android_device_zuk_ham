@@ -8,7 +8,7 @@ BASE=../../../vendor/$VENDOR/$DEVICE/proprietary
 rm -rf $BASE/*
 
 for FILE in `cat $PROPRIETARY_FILES | grep -v ^# | grep -v ^$ `; do
-    FILE=$(echo $FILE | sed -e 's|^-||g')
+    FILE=$(echo $FILE | sed -e 's|^-||g' | sed -e 's|^+||g')
     DIR=`dirname $FILE`
     if [ ! -d $BASE/$DIR ]; then
         mkdir -p $BASE/$DIR

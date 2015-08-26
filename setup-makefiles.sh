@@ -28,8 +28,8 @@ PRODUCT_COPY_FILES += \\
 EOF
 
 LINEEND=" \\"
-COUNT=`cat ${PROPRIETARY_FILES}| grep -v ^# | grep -v ^$ | grep ^- | wc -l | awk {'print $1'}`
-for FILE in `cat ${PROPRIETARY_FILES}| grep -v ^# | grep -v ^$ | grep ^- | sed -e 's|^-||g'`; do
+COUNT=`cat ${PROPRIETARY_FILES}| grep -v ^# | grep -v ^$ | grep ^- | grep -v ^+ | wc -l | awk {'print $1'}`
+for FILE in `cat ${PROPRIETARY_FILES}| grep -v ^# | grep -v ^$ | grep ^- | grep -v ^+ | sed -e 's|^-||g'`; do
     COUNT=`expr $COUNT - 1`
     if [ $COUNT = "0" ]; then
         LINEEND=""
@@ -45,8 +45,8 @@ PRODUCT_COPY_FILES += \\
 EOF
 
 LINEEND=" \\"
-COUNT=`cat $PROPRIETARY_FILES | grep -v ^# | grep -v ^$ | grep -v ^- | wc -l | awk {'print $1'}`
-for FILE in `cat $PROPRIETARY_FILES | grep -v ^# | grep -v ^$ | grep -v ^-`; do
+COUNT=`cat $PROPRIETARY_FILES | grep -v ^# | grep -v ^$ | grep -v ^- | grep -v ^+ | wc -l | awk {'print $1'}`
+for FILE in `cat $PROPRIETARY_FILES | grep -v ^# | grep -v ^$ | grep -v ^- | grep -v ^+`; do
     COUNT=`expr $COUNT - 1`
     if [ $COUNT = "0" ]; then
         LINEEND=""
@@ -73,6 +73,13 @@ done
 
 # Pick up overlay for features that depend on non-open-source files
 DEVICE_PACKAGE_OVERLAYS := vendor/$VENDOR/$DEVICE/overlay
+
+PRODUCT_PACKAGES += \\
+    com.qualcomm.location \\
+    QuickBoot \\
+    qcrilmsgtunnel \\
+    shutdownlistener \\
+    TimeService
 
 \$(call inherit-product, vendor/$VENDOR/$DEVICE/$DEVICE-vendor-blobs.mk)
 EOF
@@ -119,6 +126,56 @@ LOCAL_PATH := \$(call my-dir)
 ifeq (\$(TARGET_DEVICE),ham)
 
 ifeq (\$(QCPATH),)
+include \$(CLEAR_VARS)
+LOCAL_MODULE := com.qualcomm.location
+LOCAL_MODULE_OWNER := $VENDOR
+LOCAL_SRC_FILES := proprietary/priv-app/com.qualcomm.location/com.qualcomm.location.apk
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_SUFFIX := \$(COMMON_ANDROID_PACKAGE_SUFFIX)
+LOCAL_MODULE_CLASS := APPS
+LOCAL_CERTIFICATE := platform
+LOCAL_PRIVILEGED_MODULE := true
+include \$(BUILD_PREBUILT)
+
+include \$(CLEAR_VARS)
+LOCAL_MODULE := QuickBoot
+LOCAL_MODULE_OWNER := $VENDOR
+LOCAL_SRC_FILES := proprietary/app/QuickBoot/QuickBoot.apk
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_SUFFIX := \$(COMMON_ANDROID_PACKAGE_SUFFIX)
+LOCAL_MODULE_CLASS := APPS
+LOCAL_CERTIFICATE := platform
+include \$(BUILD_PREBUILT)
+
+include \$(CLEAR_VARS)
+LOCAL_MODULE := qcrilmsgtunnel
+LOCAL_MODULE_OWNER := $VENDOR
+LOCAL_SRC_FILES := proprietary/app/qcrilmsgtunnel/qcrilmsgtunnel.apk
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_SUFFIX := \$(COMMON_ANDROID_PACKAGE_SUFFIX)
+LOCAL_MODULE_CLASS := APPS
+LOCAL_CERTIFICATE := platform
+include \$(BUILD_PREBUILT)
+
+include \$(CLEAR_VARS)
+LOCAL_MODULE := shutdownlistener
+LOCAL_MODULE_OWNER := $VENDOR
+LOCAL_SRC_FILES := proprietary/app/shutdownlistener/shutdownlistener.apk
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_SUFFIX := \$(COMMON_ANDROID_PACKAGE_SUFFIX)
+LOCAL_MODULE_CLASS := APPS
+LOCAL_CERTIFICATE := platform
+include \$(BUILD_PREBUILT)
+
+include \$(CLEAR_VARS)
+LOCAL_MODULE := TimeService
+LOCAL_MODULE_OWNER := $VENDOR
+LOCAL_SRC_FILES := proprietary/app/TimeService/TimeService.apk
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_SUFFIX := \$(COMMON_ANDROID_PACKAGE_SUFFIX)
+LOCAL_MODULE_CLASS := APPS
+LOCAL_CERTIFICATE := platform
+include \$(BUILD_PREBUILT)
 
 include \$(CLEAR_VARS)
 LOCAL_MODULE := libqmi
