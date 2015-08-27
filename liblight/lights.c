@@ -51,6 +51,57 @@ char const*const GREEN_LED_FILE
 char const*const BLUE_LED_FILE
         = "/sys/class/leds/led:rgb_blue/brightness";
 
+char const*const RED_DUTY_PCTS_FILE
+        = "/sys/class/leds/led:rgb_red/duty_pcts";
+
+char const*const GREEN_DUTY_PCTS_FILE
+        = "/sys/class/leds/led:rgb_green/duty_pcts";
+
+char const*const BLUE_DUTY_PCTS_FILE
+        = "/sys/class/leds/led:rgb_blue/duty_pcts";
+
+char const*const RED_START_IDX_FILE
+        = "/sys/class/leds/led:rgb_red/start_idx";
+
+char const*const GREEN_START_IDX_FILE
+        = "/sys/class/leds/led:rgb_green/start_idx";
+
+char const*const BLUE_START_IDX_FILE
+        = "/sys/class/leds/led:rgb_blue/start_idx";
+
+char const*const RED_PAUSE_LO_FILE
+        = "/sys/class/leds/led:rgb_red/pause_lo";
+
+char const*const GREEN_PAUSE_LO_FILE
+        = "/sys/class/leds/led:rgb_green/pause_lo";
+
+char const*const BLUE_PAUSE_LO_FILE
+        = "/sys/class/leds/led:rgb_blue/pause_lo";
+
+char const*const RED_PAUSE_HI_FILE
+        = "/sys/class/leds/led:rgb_red/pause_hi";
+
+char const*const GREEN_PAUSE_HI_FILE
+        = "/sys/class/leds/led:rgb_green/pause_hi";
+
+char const*const BLUE_PAUSE_HI_FILE
+        = "/sys/class/leds/led:rgb_blue/pause_hi";
+
+char const*const RED_RAMP_STEP_MS_FILE
+        = "/sys/class/leds/led:rgb_red/ramp_step_ms";
+
+char const*const GREEN_RAMP_STEP_MS_FILE
+        = "/sys/class/leds/led:rgb_green/ramp_step_ms";
+
+char const*const BLUE_RAMP_STEP_MS_FILE
+        = "/sys/class/leds/led:rgb_blue/ramp_step_ms";
+
+static int BRIGHTNESS_RAMP[] = {
+    0, 12, 25, 37, 50, 72, 85, 100
+};
+#define RAMP_SIZE (sizeof(BRIGHTNESS_RAMP)/sizeof(BRIGHTNESS_RAMP[0]))
+#define RAMP_STEP_DURATION 50
+
 char const*const LCD_FILE
         = "/sys/class/leds/lcd-backlight/brightness";
 
@@ -101,6 +152,28 @@ write_int(char const* path, int value)
 }
 
 static int
+write_str(char const* path, char* value)
+{
+    int fd;
+    static int already_warned = 0;
+
+    fd = open(path, O_RDWR);
+    if (fd >= 0) {
+        char buffer[1024];
+        int bytes = snprintf(buffer, sizeof(buffer), "%s\n", value);
+        ssize_t amt = write(fd, buffer, (size_t)bytes);
+        close(fd);
+        return amt == -1 ? -errno : 0;
+    } else {
+        if (already_warned == 0) {
+            ALOGE("write_int failed to open %s\n", path);
+            already_warned = 1;
+        }
+        return -errno;
+    }
+}
+
+static int
 is_lit(struct light_state_t const* state)
 {
     return state->color & 0x00ffffff;
@@ -126,15 +199,37 @@ set_light_backlight(struct light_device_t* dev,
     return err;
 }
 
+static char*
+get_scaled_duty_pcts(int brightness)
+{
+    char *buf = malloc(5 * RAMP_SIZE * sizeof(char));
+    char *pad = "";
+    int i = 0;
+
+    memset(buf, 0, 5 * RAMP_SIZE * sizeof(char));
+
+    for (i = 0; i < RAMP_SIZE; i++) {
+        char temp[5] = "";
+        snprintf(temp, sizeof(temp), "%s%d", pad, (BRIGHTNESS_RAMP[i] * brightness / 255));
+        strcat(buf, temp);
+        pad = ",";
+    }
+    ALOGV("%s: brightness=%d duty=%s", __func__, brightness, buf);
+    return buf;
+}
+
 static int
 set_speaker_light_locked(struct light_device_t* dev,
         struct light_state_t const* state)
 {
-    int len;
-    int alpha, red, green, blue;
-    int blink;
-    int onMS, offMS;
+    int red, green, blue, blink;
+    int onMS, offMS, stepDuration, pauseHi;
     unsigned int colorRGB;
+    char *duty;
+
+    if(!dev) {
+        return -1;
+    }
 
     switch (state->flashMode) {
         case LIGHT_FLASH_TIMED:
@@ -151,32 +246,77 @@ set_speaker_light_locked(struct light_device_t* dev,
     colorRGB = state->color;
 
 #if 0
-    ALOGD("set_speaker_light_locked mode %d, colorRGB=%08X, onMS=%d, offMS=%d\n",
+    ALOGV("set_speaker_light_locked mode %d, colorRGB=%08X, onMS=%d, offMS=%d\n",
             state->flashMode, colorRGB, onMS, offMS);
 #endif
 
     red = (colorRGB >> 16) & 0xFF;
     green = (colorRGB >> 8) & 0xFF;
     blue = colorRGB & 0xFF;
+    blink = onMS > 0 && offMS > 0;
 
-    if (onMS > 0 && offMS > 0) {
-        blink = 1;
-    } else {
-        blink = 0;
-    }
+    // disable all blinking to start
+    write_int(RED_BLINK_FILE, 0);
+    write_int(GREEN_BLINK_FILE, 0);
+    write_int(BLUE_BLINK_FILE, 0);
 
     if (blink) {
-        if (red)
-            write_int(RED_BLINK_FILE, blink);
-        if (green)
-            write_int(GREEN_BLINK_FILE, blink);
-        if (blue)
-            write_int(BLUE_BLINK_FILE, blink);
+        stepDuration = RAMP_STEP_DURATION;
+        pauseHi = onMS - (stepDuration * RAMP_SIZE * 2);
+        if (stepDuration * RAMP_SIZE * 2 > onMS) {
+            stepDuration = onMS / (RAMP_SIZE * 2);
+            pauseHi = 0;
+        }
+
+        // red
+        write_int(RED_START_IDX_FILE, 0);
+        duty = get_scaled_duty_pcts(red);
+        write_str(RED_DUTY_PCTS_FILE, duty);
+        write_int(RED_PAUSE_LO_FILE, offMS);
+        // The led driver is configured to ramp up then ramp
+        // down the lut. This effectively doubles the ramp duration.
+        write_int(RED_PAUSE_HI_FILE, pauseHi);
+        write_int(RED_RAMP_STEP_MS_FILE, stepDuration);
+        free(duty);
+
+        // green
+        write_int(GREEN_START_IDX_FILE, RAMP_SIZE);
+        duty = get_scaled_duty_pcts(green);
+        write_str(GREEN_DUTY_PCTS_FILE, duty);
+        write_int(GREEN_PAUSE_LO_FILE, offMS);
+        // The led driver is configured to ramp up then ramp
+        // down the lut. This effectively doubles the ramp duration.
+        write_int(GREEN_PAUSE_HI_FILE, pauseHi);
+        write_int(GREEN_RAMP_STEP_MS_FILE, stepDuration);
+        free(duty);
+
+        // blue
+        write_int(BLUE_START_IDX_FILE, RAMP_SIZE*2);
+        duty = get_scaled_duty_pcts(blue);
+        write_str(BLUE_DUTY_PCTS_FILE, duty);
+        write_int(BLUE_PAUSE_LO_FILE, offMS);
+        // The led driver is configured to ramp up then ramp
+        // down the lut. This effectively doubles the ramp duration.
+        write_int(BLUE_PAUSE_HI_FILE, pauseHi);
+        write_int(BLUE_RAMP_STEP_MS_FILE, stepDuration);
+        free(duty);
+
+        // start the party
+        if (red) {
+            write_int(RED_BLINK_FILE, 1);
+        }
+        if (green) {
+            write_int(GREEN_BLINK_FILE, 1);
+        }
+        if (blue) {
+            write_int(BLUE_BLINK_FILE, 1);
+        }
     } else {
         write_int(RED_LED_FILE, red);
         write_int(GREEN_LED_FILE, green);
         write_int(BLUE_LED_FILE, blue);
     }
+
 
     return 0;
 }
