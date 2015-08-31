@@ -30,7 +30,6 @@ import org.cyanogenmod.hardware.util.FileUtils;
 public class KeyDisabler {
 
     private static String CONTROL_PATH = "/sys/devices/virtual/touch/tp_dev/key_enable";
-    private static String KEY_PATH = "/sys/bus/platform/drivers/gpio-keys/gpio_keys.83/disabled_keys";
 
     public static boolean isSupported() { return true; }
 
@@ -39,7 +38,6 @@ public class KeyDisabler {
     }
 
     public static boolean setActive(boolean state) {
-        FileUtils.writeLine(KEY_PATH, (state ? "102" : ""));
         return FileUtils.writeLine(CONTROL_PATH, (state ? "0" : "1"));
     }
 
