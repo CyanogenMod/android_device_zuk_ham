@@ -156,6 +156,7 @@
 # Radio
 +app/qcrilmsgtunnel/qcrilmsgtunnel.apk
 +app/shutdownlistener/shutdownlistener.apk
+-bin/diag_mdlog
 -bin/netmgrd
 -bin/qmuxd
 -bin/radish
