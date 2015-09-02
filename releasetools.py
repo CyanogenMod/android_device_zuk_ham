@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Emit commands needed for device during OTA installation
+"""Emit commands needed for QCOM devices during OTA installation
 (installing the radio image)."""
 
 import hashlib
@@ -75,27 +75,35 @@ def InstallRawImage(image_data, api_version, input_zip, fn, info, filesmap):
   else:
     print "warning radio-update: no support for api_version less than 3."
 
-def FULLOTA_InstallEnd_MMC(info):
+def InstallRadioFiles(info):
   files = GetRadioFiles(info.input_zip)
   if files == {}:
     print "warning radio-update: no radio image in input target_files; not flashing radio"
     return
-  info.script.UnmountAll()
   info.script.Print("Writing radio image...")
   #Load filesmap file
   filesmap = LoadFilesMap(info.input_zip)
   if filesmap == {}:
       print "warning radio-update: no or invalid filesmap file found. not flashing radio"
       return
+  if hasattr(info, 'source_zip'):
+      source_filesmap = LoadFilesMap(info.source_zip)
+  else:
+      source_filesmap = None
   for f in files:
+    if source_filesmap:
+        filename = f[6:]
+        source_checksum = source_filesmap.get(filename, [None, 'no_source'])[1]
+        target_checksum = filesmap.get(filename, [None, 'no_target'])[1]
+        if source_checksum == target_checksum:
+            print "info radio-update: source and target match for %s... skipping" % filename
+            continue
     image_data = info.input_zip.read(f)
     InstallRawImage(image_data, info.input_version, info.input_zip, f, info, filesmap)
   return
 
 def FullOTA_InstallEnd(info):
-  FULLOTA_InstallEnd_MMC(info)
+  InstallRadioFiles(info)
 
 def IncrementalOTA_InstallEnd(info):
-  #TODO: Implement device specific asserstions.
-  print "warning radio-update: no real implementation of IncrementalOTA_InstallEnd."
-  return
+  InstallRadioFiles(info)
