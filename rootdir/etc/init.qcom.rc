@@ -304,6 +304,12 @@ on post-fs-data
     # camera sockets
     mkdir /data/misc/camera 0770 camera camera
 
+    # custom ECC
+    mkdir /data/misc/radio 0700 radio radio
+    exec /system/xbin/cp /vendor/etc/qcril.db /data/misc/radio/qcril.db
+    chown radio radio /data/misc/radio/qcril.db
+    chmod 700 /data/misc/radio/qcril.db
+
 on fs
     mount_all ./fstab.qcom
     write /data/local/tmp/status mounted
