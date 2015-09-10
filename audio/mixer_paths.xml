@@ -33,12 +33,12 @@
     <ctl name="RX5 Digital Volume" value="84" />
     <ctl name="RX6 Digital Volume" value="84" />
     <ctl name="RX7 Digital Volume" value="84" />
-    <ctl name="ADC1 Volume" value="6" />
-    <ctl name="ADC2 Volume" value="6" />
-    <ctl name="ADC3 Volume" value="6" />
-    <ctl name="ADC4 Volume" value="6" />
-    <ctl name="ADC5 Volume" value="6" />
-    <ctl name="ADC6 Volume" value="6" />
+    <ctl name="ADC1 Volume" value="19" />
+    <ctl name="ADC2 Volume" value="19" />
+    <ctl name="ADC3 Volume" value="0" />
+    <ctl name="ADC4 Volume" value="0" />
+    <ctl name="ADC5 Volume" value="19" />
+    <ctl name="ADC6 Volume" value="19" />
     <ctl name="DEC1 Volume" value="84" />
     <ctl name="DEC2 Volume" value="84" />
     <ctl name="DEC3 Volume" value="84" />
@@ -1408,7 +1408,7 @@
     </path>
 
     <path name="camcorder-mic">
-        <path name="adc3" />
+        <path name="adc1" />
     </path>
 
     <path name="hdmi-tx">
@@ -1476,8 +1476,8 @@
         <ctl name="SLIM TX8 MUX" value="DEC9" />
         <ctl name="DEC9 MUX" value="ADC3" />
         <ctl name="SLIM_0_TX Channels" value="Two" />
-        <ctl name="DEC7 Volume" value="84" />
-        <ctl name="DEC9 Volume" value="84" />
+        <ctl name="DEC7 Volume" value="88" />
+        <ctl name="DEC9 Volume" value="88" />
     </path>
 
     <path name="speaker-dmic-endfire-liquid">
@@ -1517,7 +1517,7 @@
     </path>
 
     <path name="handset-audio-mic">
-        <path name="adc4" />
+        <path name="adc1" />
     </path>
 
     <path name="handset-voice-mic">
