@@ -1,3 +1,0 @@
-allow bootanim mpdecision:unix_stream_socket connectto;
-allow bootanim mpctl_socket:dir search;
-unix_socket_send(bootanim, mpctl, perfd)
