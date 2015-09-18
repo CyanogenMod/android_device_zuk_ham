@@ -201,6 +201,10 @@
 # QuickBoot
 +app/QuickBoot/QuickBoot.apk
 
+# Wap Push
+etc/permissions/com.qrd.wappush.xml
+-framework/com.qrd.wappush.jar
+
 # WiFi
 -lib/libwpa_qmi_eap_proxy.so
 -lib/libwcnss_qmi.so
