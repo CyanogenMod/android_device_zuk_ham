@@ -4234,6 +4234,9 @@ int32_t QCameraParameters::initDefaultParameters()
     String8 onOffValues = createValuesStringFromMap(
         ON_OFF_MODES_MAP, sizeof(ON_OFF_MODES_MAP) / sizeof(QCameraMap));
 
+    // Enable tintless
+    set(KEY_QC_TINTLESS_ENABLE, VALUE_ENABLE);
+
     //Set Scene Detection
     set(KEY_QC_SUPPORTED_SCENE_DETECT, onOffValues);
     setSceneDetect(VALUE_OFF);
