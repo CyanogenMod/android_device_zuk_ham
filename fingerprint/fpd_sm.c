@@ -179,20 +179,10 @@ void *authenticate_func(void *arg_auth) {
         }
 
         int finger = 0;
-        if (CMD_RESULT_OK == fpd_detect_finger_down()) {
-            if (CMD_RESULT_OK == fpd_verify_all(&finger)) {
-                fpd_sm_notify_acquired(sm, FINGERPRINT_ACQUIRED_GOOD);
-                fpd_sm_notify_processed(sm, finger);
-                break;
-            }
-
-            // A finger was detected but it was not verified, report an error
-            fpd_sm_notify_acquired(sm, FINGERPRINT_ACQUIRED_INSUFFICIENT);
-            fpd_sm_notify_processed(sm, 0);
-
-            // Wait for finger up, or else we'd fall in the same state too
-            // quickly and spam notifications to userspace.
-            while (CMD_RESULT_OK != fpd_detect_finger_up());
+        if (CMD_RESULT_OK == fpd_verify_all(&finger)) {
+            fpd_sm_notify_acquired(sm, FINGERPRINT_ACQUIRED_GOOD);
+            fpd_sm_notify_processed(sm, finger);
+            break;
         }
     }
 
