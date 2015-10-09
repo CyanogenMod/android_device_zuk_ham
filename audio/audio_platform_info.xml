@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <audio_platform_info>
+  <acdb_ids>
+    <device name="SND_DEVICE_IN_HANDSET_MIC" acdb_id="34"/>
+    <device name="SND_DEVICE_IN_VOICE_SPEAKER_MIC" acdb_id="42"/>
+    <device name="SND_DEVICE_IN_CAMCORDER_MIC" acdb_id="52"/>
+    <device name="SND_DEVICE_IN_AANC_HEADSET_MIC" acdb_id="105"/>
+    <device name="SND_DEVICE_IN_HANDSET_STEREO_DMIC" acdb_id="51"/>
+  </acdb_ids>
+
   <backend_names>
     <device name="SND_DEVICE_OUT_SPEAKER" backend="smartpa" />
     <device name="SND_DEVICE_OUT_SPEAKER_REVERSE" backend="smartpa" />
