@@ -602,11 +602,10 @@ service ssr_diag /system/bin/ssr_diag
     group system
     disabled
 
-service fingerprint /system/vendor/bin/fingerprint_client
-     class main
-     socket fpd stream 0666 system system
-     user system
-     group system
+# fingerprint daemon
+service fingerprintd /system/bin/fingerprintd
+    class late_start
+    user system
 
 service testmode /sbin/testmode
      class late_start
