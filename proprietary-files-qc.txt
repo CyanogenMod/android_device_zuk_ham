@@ -182,7 +182,7 @@
 -vendor/lib/libsensor_reg.so
 
 # Thermal
--bin/thermal-engine
+-vendor/bin/thermal-engine
 -vendor/lib/libthermalclient.so
 -vendor/lib/libthermalioctl.so
 
