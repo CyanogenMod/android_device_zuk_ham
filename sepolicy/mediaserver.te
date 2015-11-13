@@ -5,3 +5,4 @@ allow mediaserver camera_prop:property_service set;
 allow mediaserver audiod:binder call;
 
 allow mediaserver system_file:file { execmod };
+allow mediaserver camera_file:file read;
