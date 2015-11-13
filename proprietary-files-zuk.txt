@@ -84,7 +84,7 @@
 
 # Fingerprint
 -lib/hw/fingerprint.msm8974.so
--lib/lib/lib_fpc_tac_shared.so
+-lib/lib_fpc_tac_shared.so
 
 # Custom ECC
 vendor/etc/qcril.db
