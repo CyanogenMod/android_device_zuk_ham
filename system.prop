@@ -12,6 +12,9 @@ persist.radio.custom_ecc=1
 # enable multisim
 persist.radio.multisim.config=dsds
 
+#default network support for CDMA
+ro.telephony.default_network=20,20
+
 # sensors
 ro.qc.sdk.camera.facialproc=true
 ro.qc.sdk.gestures.camera=false
