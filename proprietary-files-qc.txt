@@ -61,7 +61,6 @@
 -bin/xtwifi-client
 -bin/xtwifi-inet-agent
 -etc/permissions/com.qualcomm.location.xml
--lib/libloc_api_v02.so
 -lib/libloc_ds_api.so
 -vendor/lib/hw/activity_recognition.msm8974.so
 -vendor/lib/hw/flp.default.so
@@ -158,6 +157,8 @@
 -bin/radish
 -bin/rfs_access
 -bin/rmt_storage
+-etc/data/dsi_config.xml
+-etc/data/netmgr_config.xml
 -etc/permissions/qcnvitems.xml
 -etc/permissions/qcrilhook.xml
 -framework/qcnvitems.jar
@@ -165,6 +166,7 @@
 -framework/qti-telephony-common.jar
 -framework/ConnectivityExt.jar
 -lib/libmdmdetect.so
+-lib/librmnetctl.so
 -vendor/lib/libconfigdb.so
 -vendor/lib/liblqe.so
 -vendor/lib/libnetmgr.so
