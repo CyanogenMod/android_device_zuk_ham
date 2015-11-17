@@ -5,6 +5,3 @@ type touchpanel_sysfs, fs_type, sysfs_type;
 type fingerprint_sysfs, sysfs_type, file_type;
 type fingerprint_device, dev_type;
 type fingerprint_persist_file, file_type, data_file_type;
-
-
-type camera_file, file_type;
