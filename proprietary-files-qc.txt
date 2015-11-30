@@ -108,17 +108,12 @@
 # Media
 -vendor/lib/libHevcSwDecoder.so
 -vendor/lib/libI420colorconvert.so
--vendor/lib/libmmosal.so
--vendor/lib/libmmparser.so
 -vendor/lib/libmm-color-convertor.so
--vendor/lib/libDivxDrm.so
--vendor/lib/libExtendedExtractor.so
 -vendor/lib/libOmxAacDec.so
 -vendor/lib/libOmxAmrwbplusDec.so
 -vendor/lib/libOmxEvrcDec.so
 -vendor/lib/libOmxQcelp13Dec.so
 -vendor/lib/libOmxWmaDec.so
--vendor/lib/libSHIMDivxDrm.so
 
 # Postprocessing
 -vendor/bin/mm-pp-daemon
