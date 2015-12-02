@@ -11,8 +11,6 @@
 -vendor/lib/libadsprpc.so
 -vendor/lib/libfastcvadsp_stub.so
 -vendor/lib/libfastcvopt.so
--vendor/lib/libscve.so
--vendor/lib/libscve_stub.so
 -vendor/lib/rfsa/adsp/libfastcvadsp.so
 -vendor/lib/rfsa/adsp/libfastcvadsp_skel.so
 -vendor/lib/rfsa/adsp/libapps_mem_heap.so
@@ -62,6 +60,7 @@
 -bin/xtwifi-inet-agent
 -etc/permissions/com.qualcomm.location.xml
 -lib/libloc_ds_api.so
+-lib/libloc_api_v02.so
 -vendor/lib/hw/activity_recognition.msm8974.so
 -vendor/lib/hw/flp.default.so
 -vendor/lib/libalarmservice_jni.so
@@ -160,7 +159,6 @@
 -framework/qti-telephony-common.jar
 -framework/ConnectivityExt.jar
 -lib/libmdmdetect.so
--lib/librmnetctl.so
 -vendor/lib/libconfigdb.so
 -vendor/lib/liblqe.so
 -vendor/lib/libnetmgr.so

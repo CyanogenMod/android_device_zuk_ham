@@ -180,6 +180,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
      persist.sys.usb.config=mtp
 
+# Data
+PRODUCT_PACKAGES += \
+    librmnetctl \
+    rmnetcli
 
 # WiFi
 PRODUCT_COPY_FILES += \
