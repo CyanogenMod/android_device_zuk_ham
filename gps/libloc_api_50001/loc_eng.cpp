@@ -30,6 +30,7 @@
 #define LOG_NDDEBUG 0
 #define LOG_TAG "LocSvc_eng"
 
+#include <string.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
