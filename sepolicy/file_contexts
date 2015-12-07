@@ -1,16 +1,7 @@
 /data/cam_socket.*                                 u:object_r:camera_socket:s0
 
-/sys/devices/virtual/timed_output/vibrator/vtg_level   u:object_r:vibeamp_sysfs:s0
-
 /persist/.genmac                                u:object_r:wifi_data_file:s0
 /persist/.bt_nv.bin                             u:object_r:bluetooth_data_file:s0
 /persist/sns.reg                                u:object_r:sensors_persist_file:s0
 
 /dev/tfa9890                                    u:object_r:audio_device:s0
-
-/sys/devices/virtual/touch/tp_dev/key_enable    u:object_r:touchpanel_sysfs:s0
-/sys/devices/gpio_keys.83/disabled_keys         u:object_r:touchpanel_sysfs:s0
-
-/sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/enable_navi u:object_r:fingerprint_sysfs:s0
-/system/vendor/bin/fingerprint_client                              u:object_r:fingerprint_exec:s0
-/dev/socket/fpd                                                    u:object_r:fingerprint_socket:s0
