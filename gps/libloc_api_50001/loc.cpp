@@ -30,6 +30,7 @@
 #define LOG_NDDEBUG 0
 #define LOG_TAG "LocSvc_afw"
 
+#include <string.h>
 #include <hardware/gps.h>
 #include <gps_extended.h>
 #include <loc_eng.h>
