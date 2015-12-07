@@ -29,6 +29,8 @@
 
 #include "QCamera2Factory.h"
 
+extern "C" {
+
 static hw_module_t camera_common = {
     tag: HARDWARE_MODULE_TAG,
     module_api_version: CAMERA_MODULE_API_VERSION_1_0,
@@ -56,3 +58,5 @@ camera_module_t HAL_MODULE_INFO_SYM = {
     reserved:  {0}
 #endif
 };
+
+}
