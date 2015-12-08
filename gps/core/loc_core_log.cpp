@@ -30,6 +30,8 @@
 #define LOG_NDDEBUG 0
 #define LOG_TAG "LocSvc_core_log"
 
+#include <string.h>
+#include <hardware/gps.h>
 #include <loc_log.h>
 #include <log_util.h>
 #include <loc_core_log.h>
