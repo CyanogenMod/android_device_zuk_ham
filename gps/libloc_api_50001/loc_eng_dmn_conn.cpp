@@ -27,6 +27,7 @@
  *
  */
 
+#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <linux/stat.h>
