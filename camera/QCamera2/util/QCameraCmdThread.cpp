@@ -27,6 +27,8 @@
 *
 */
 
+#include <string.h>
+#include <malloc.h>
 #include <utils/Errors.h>
 #include <utils/Log.h>
 #include "QCameraCmdThread.h"
