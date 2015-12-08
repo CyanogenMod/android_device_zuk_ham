@@ -41,7 +41,7 @@ void initHALModuleInfo() {
 	camera_common.author = "Qualcomm Innovation Center Inc";
 	camera_common.methods = &qcamera::QCamera2Factory::mModuleMethods;
 	camera_common.dso = NULL;
-	camera_common.reserved = {0};
+	memset((void *)camera_common.reserved, 0, sizeof(camera_common.reserved));
 	HAL_MODULE_INFO_SYM.common = camera_common;
 	HAL_MODULE_INFO_SYM.get_number_of_cameras = qcamera::QCamera2Factory::get_number_of_cameras;
 	HAL_MODULE_INFO_SYM.get_camera_info = qcamera::QCamera2Factory::get_camera_info;
@@ -57,7 +57,7 @@ void initHALModuleInfo() {
 	HAL_MODULE_INFO_SYM.open_legacy = NULL;
 #endif
 
-	HAL_MODULE_INFO_SYM.reserved = {0};
+	memset((void *)HAL_MODULE_INFO_SYM.reserved, 0, sizeof(HAL_MODULE_INFO_SYM.reserved));
 #endif
 }
 
