@@ -33,6 +33,7 @@
 #define GPS_PRN_END   32
 #define GLONASS_PRN_START 65
 #define GLONASS_PRN_END   96
+#include <string.h>
 #include <loc_eng.h>
 #include <loc_eng_nmea.h>
 #include <math.h>
