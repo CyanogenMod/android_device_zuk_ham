@@ -29,6 +29,7 @@
 #define LOG_NDDEBUG 0
 #define LOG_TAG "LocSvc_LocApiBase"
 
+#include <string.h>
 #include <dlfcn.h>
 #include <LocApiBase.h>
 #include <LocAdapterBase.h>
