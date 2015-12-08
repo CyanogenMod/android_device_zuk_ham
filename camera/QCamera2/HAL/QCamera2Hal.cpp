@@ -43,7 +43,18 @@ static hw_module_t camera_common = {
     reserved:  {0},
 };
 
-camera_module_t HAL_MODULE_INFO_SYM = {
+static camera_module_t HAL_MODULE_INFO_SYM = {
+    common: camera_common,
+    get_number_of_cameras: qcamera::QCamera2Factory::get_number_of_cameras,
+    get_camera_info: qcamera::QCamera2Factory::get_camera_info,
+    set_callbacks: NULL,
+    get_vendor_tag_ops: NULL,
+    open_legacy: NULL,
+    reserved: {0},
+};
+
+/*
+static camera_module_t HAL_MODULE_INFO_SYM = {
     common: camera_common,
     get_number_of_cameras: qcamera::QCamera2Factory::get_number_of_cameras,
     get_camera_info: qcamera::QCamera2Factory::get_camera_info,
@@ -58,5 +69,6 @@ camera_module_t HAL_MODULE_INFO_SYM = {
     reserved:  {0}
 #endif
 };
+*/
 
 }
