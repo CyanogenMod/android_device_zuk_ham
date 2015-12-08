@@ -29,46 +29,35 @@
 
 #include "QCamera2Factory.h"
 
-extern "C" {
+static hw_module_t camera_common;
+camera_module_t HAL_MODULE_INFO_SYM;
 
-static hw_module_t camera_common = {
-    tag: HARDWARE_MODULE_TAG,
-    module_api_version: CAMERA_MODULE_API_VERSION_1_0,
-    hal_api_version: HARDWARE_HAL_API_VERSION,
-    id: CAMERA_HARDWARE_MODULE_ID,
-    name: "QCamera Module",
-    author: "Qualcomm Innovation Center Inc",
-    methods: &qcamera::QCamera2Factory::mModuleMethods,
-    dso: NULL,
-    reserved:  {0},
-};
+void initHALModuleInfo() {
+	camera_common.tag = HARDWARE_MODULE_TAG;
+	camera_common.module_api_version = CAMERA_MODULE_API_VERSION_1_0;
+	camera_common.hal_api_version = HARDWARE_HAL_API_VERSION;
+	camera_common.id = CAMERA_HARDWARE_MODULE_ID;
+	camera_common.name = "QCamera Module";
+	camera_common.author = "Qualcomm Innovation Center Inc";
+	camera_common.methods = &qcamera::QCamera2Factory::mModuleMethods;
+	camera_common.dso = NULL;
+	camera_common.reserved = {0};
+	HAL_MODULE_INFO_SYM.common = camera_common;
+	HAL_MODULE_INFO_SYM.get_number_of_cameras = qcamera::QCamera2Factory::get_number_of_cameras;
+	HAL_MODULE_INFO_SYM.get_camera_info = qcamera::QCamera2Factory::get_camera_info;
 
-static camera_module_t HAL_MODULE_INFO_SYM = {
-    common: camera_common,
-    get_number_of_cameras: qcamera::QCamera2Factory::get_number_of_cameras,
-    get_camera_info: qcamera::QCamera2Factory::get_camera_info,
-    set_callbacks: NULL,
-    get_vendor_tag_ops: NULL,
-    open_legacy: NULL,
-    reserved: {0},
-};
-
-/*
-static camera_module_t HAL_MODULE_INFO_SYM = {
-    common: camera_common,
-    get_number_of_cameras: qcamera::QCamera2Factory::get_number_of_cameras,
-    get_camera_info: qcamera::QCamera2Factory::get_camera_info,
 #ifndef USE_JB_MR1
-    set_callbacks: NULL,
+	HAL_MODULE_INFO_SYM.set_callbacks = NULL;
 #endif
-#ifdef USE_VENDOR_CAMERA_EXT
-    get_vendor_tag_ops: NULL,
-#ifndef USE_KK_CODE
-    open_legacy: NULL,
-#endif
-    reserved:  {0}
-#endif
-};
-*/
 
+#ifdef USE_VENDOR_CAMERA_EXT
+	HAL_MODULE_INFO_SYM.get_vendor_tag_ops = NULL;
+
+#ifndef USE_KK_CODE
+	HAL_MODULE_INFO_SYM.open_legacy = NULL;
+#endif
+
+	HAL_MODULE_INFO_SYM.reserved = {0};
+#endif
 }
+
