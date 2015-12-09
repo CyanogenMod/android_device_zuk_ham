@@ -35,6 +35,7 @@ extern "C"
 {
 #endif
 
+#include <hardware/gps.h>
 #include <ctype.h>
 #include "loc_target.h"
 
