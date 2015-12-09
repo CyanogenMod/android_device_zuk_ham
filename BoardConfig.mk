@@ -155,6 +155,7 @@ TARGET_RIL_VARIANT := caf
 
 # Recovery
 TARGET_RECOVERY_FSTAB := device/zuk/ham/rootdir/etc/fstab.qcom
+TARGET_NOT_USE_GZIP_RECOVERY_RAMDISK := true
 
 # Releasetools
 TARGET_RELEASETOOLS_EXTENSIONS := device/zuk/ham
