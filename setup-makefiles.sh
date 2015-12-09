@@ -76,10 +76,8 @@ DEVICE_PACKAGE_OVERLAYS := vendor/$VENDOR/$DEVICE/overlay
 
 PRODUCT_PACKAGES += \\
     com.qualcomm.location \\
-    QuickBoot \\
     qcrilmsgtunnel \\
-    shutdownlistener \\
-    TimeService
+    shutdownlistener
 
 \$(call inherit-product, vendor/$VENDOR/$DEVICE/$DEVICE-vendor-blobs.mk)
 EOF

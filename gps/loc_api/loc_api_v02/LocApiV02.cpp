@@ -791,9 +791,6 @@ enum loc_api_adapter_err LocApiV02 ::  deleteAidingData(GpsAidingData f)
           QMI_LOC_MASK_DELETE_CELLDB_NEIGHBOR_INFO_V02) ;
 
     }
-#ifndef PDK_FEATURE_SET
-#endif
-
   }
 
   req_union.pDeleteAssistDataReq = &delete_req;

@@ -152,9 +152,12 @@ PRODUCT_COPY_FILES += \
     libOmxVdecHevc \
     libOmxVenc \
     libstagefrighthw \
-    qcmediaplayer
+    qcmediaplayer \
+    tcmiface
 
-PRODUCT_BOOT_JARS += qcmediaplayer
+PRODUCT_BOOT_JARS += \
+    qcmediaplayer \
+    tcmiface
 
 # Power
 PRODUCT_PACKAGES += \
