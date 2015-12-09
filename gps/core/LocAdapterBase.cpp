@@ -29,7 +29,6 @@
 #define LOG_NDDEBUG 0
 #define LOG_TAG "LocSvc_LocAdapterBase"
 
-#include <string.h>
 #include <dlfcn.h>
 #include <LocAdapterBase.h>
 #include <loc_target.h>
@@ -70,11 +69,18 @@ void LocAdapterBase::
                    GpsLocationExtended &locationExtended,
                    void* locationExt,
                    enum loc_sess_status status,
-                   LocPosTechMask loc_technology_mask)
-DEFAULT_IMPL()
+                   LocPosTechMask loc_technology_mask) {
+    if (mLocAdapterProxyBase == NULL ||
+        !mLocAdapterProxyBase->reportPosition(location,
+                                              locationExtended,
+                                              status,
+                                              loc_technology_mask)) {
+        DEFAULT_IMPL()
+    }
+}
 
 void LocAdapterBase::
-    reportSv(GpsSvStatus &svStatus,
+    reportSv(GnssSvStatus &svStatus,
              GpsLocationExtended &locationExtended,
              void* svExt)
 DEFAULT_IMPL()
@@ -131,6 +137,6 @@ bool LocAdapterBase::
 DEFAULT_IMPL(false)
 
 void LocAdapterBase::
-    shutdown()
+    reportGpsMeasurementData(GpsData &gpsMeasurementData)
 DEFAULT_IMPL()
 } // namespace loc_core
