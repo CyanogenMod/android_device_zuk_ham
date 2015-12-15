@@ -159,7 +159,6 @@
 -etc/permissions/qcrilhook.xml
 -framework/qcnvitems.jar
 -framework/qcrilhook.jar
--framework/qti-telephony-common.jar
 -framework/ConnectivityExt.jar
 -lib/libmdmdetect.so
 -vendor/lib/libconfigdb.so
