@@ -1,6 +1,3 @@
-on post-fs-data
-    start wlan_insmod
-
 service wlan_insmod /system/bin/insmod /system/lib/modules/wlan.ko
-    class main
+    class late_start
     oneshot
