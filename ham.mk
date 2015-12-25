@@ -34,6 +34,7 @@ PRODUCT_PACKAGES += \
     init.qcom.rc \
     init.qcom.power.rc \
     init.qcom.usb.rc \
+    init.qcom.insmod.rc \
     init.recovery.qcom.rc
 
 # SSR
@@ -41,6 +42,10 @@ ifeq ($(TARGET_BUILD_VARIANT),user)
 PRODUCT_PACKAGES += \
     init.qcom.ssr.rc
 endif
+
+# Prebuilt kernel modules
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/modules/wlan.ko:system/lib/modules/wlan.ko
 
 # Audio
 PRODUCT_COPY_FILES += \

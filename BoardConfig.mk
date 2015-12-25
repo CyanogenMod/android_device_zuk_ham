@@ -44,17 +44,21 @@ BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_TAGS_OFFSET := 0x01E00000
 BOARD_RAMDISK_OFFSET := 0x02000000
-BOARD_KERNEL_SEPARATED_DT := true
+BOARD_KERNEL_SEPARATED_DT := false
 TARGET_KERNEL_ARCH := arm
 BOARD_KERNEL_CMDLINE := console=tty60,115200,n8 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x3b7 ehci-hcd.park=3 androidboot.bootdevice=msm_sdcc.1 vmalloc=480M androidboot.selinux=permissive
-TARGET_KERNEL_SOURCE := kernel/cyanogen/msm8974
-TARGET_KERNEL_CONFIG := cyanogenmod_k9_defconfig
+
+# CM-built kernel doesn't boot, instead we use a ZUI prebuilt one
+# TARGET_KERNEL_SOURCE := kernel/cyanogen/msm8974
+# TARGET_KERNEL_CONFIG := cyanogenmod_k9_defconfig
 
 # Enable DIAG on debug builds
-ifneq ($(TARGET_BUILD_VARIANT),user)
-TARGET_KERNEL_ADDITIONAL_CONFIG:= cyanogenmod_debug_config
-endif
+# ifneq ($(TARGET_BUILD_VARIANT),user)
+# TARGET_KERNEL_ADDITIONAL_CONFIG:= cyanogenmod_debug_config
+# endif
 
+# Prebuilt ZUI kernel
+TARGET_PREBUILT_KERNEL := device/zuk/ham/prebuilt/kernel
 
 # QCOM
 BOARD_USES_QCOM_HARDWARE := true
