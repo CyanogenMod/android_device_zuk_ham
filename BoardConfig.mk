@@ -44,21 +44,21 @@ BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_TAGS_OFFSET := 0x01E00000
 BOARD_RAMDISK_OFFSET := 0x02000000
-BOARD_KERNEL_SEPARATED_DT := false
+BOARD_KERNEL_SEPARATED_DT := true
 TARGET_KERNEL_ARCH := arm
 BOARD_KERNEL_CMDLINE := console=tty60,115200,n8 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x3b7 ehci-hcd.park=3 androidboot.bootdevice=msm_sdcc.1 vmalloc=480M androidboot.selinux=permissive
 
-# CM-built kernel doesn't boot, instead we use a ZUI prebuilt one
-# TARGET_KERNEL_SOURCE := kernel/cyanogen/msm8974
-# TARGET_KERNEL_CONFIG := cyanogenmod_k9_defconfig
+# The CM-kernel will not boot on Android 6.0, but we leave this in place so that we trigger the source-building of the kernel
+# The actual Chroma-kernel source is getting pulled via a local manifest
+TARGET_KERNEL_SOURCE := kernel/cyanogen/msm8974
+
+# Use Chroma-defconfig for Android 6.0
+TARGET_KERNEL_CONFIG := chroma_defconfig
 
 # Enable DIAG on debug builds
-# ifneq ($(TARGET_BUILD_VARIANT),user)
-# TARGET_KERNEL_ADDITIONAL_CONFIG:= cyanogenmod_debug_config
-# endif
-
-# Prebuilt ZUI kernel
-TARGET_PREBUILT_KERNEL := device/zuk/ham/prebuilt/kernel
+ifneq ($(TARGET_BUILD_VARIANT),user)
+TARGET_KERNEL_ADDITIONAL_CONFIG:= cyanogenmod_debug_config
+endif
 
 # QCOM
 BOARD_USES_QCOM_HARDWARE := true

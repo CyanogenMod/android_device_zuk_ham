@@ -1,3 +1,0 @@
-service wlan_insmod /system/bin/insmod /system/lib/modules/wlan.ko
-    class late_start
-    oneshot
