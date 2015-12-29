@@ -51,9 +51,7 @@ BOARD_KERNEL_CMDLINE := console=tty60,115200,n8 androidboot.hardware=qcom user_d
 # The CM-kernel will not boot on Android 6.0, but we leave this in place so that we trigger the source-building of the kernel
 # The actual Chroma-kernel source is getting pulled via a local manifest
 TARGET_KERNEL_SOURCE := kernel/cyanogen/msm8974
-
-# Use Chroma-defconfig for Android 6.0
-TARGET_KERNEL_CONFIG := chroma_defconfig
+TARGET_KERNEL_CONFIG := cyanogenmod_k9_defconfig
 
 # Enable DIAG on debug builds
 ifneq ($(TARGET_BUILD_VARIANT),user)
