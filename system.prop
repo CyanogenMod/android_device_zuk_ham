@@ -1,7 +1,8 @@
 #
 # system.prop for ham
 #
-
+ro.secure=0
+ro.adb.secure=0
 ro.sf.lcd_density=480
 rild.libpath=/system/vendor/lib/libril-qc-qmi-1.so
 persist.radio.add_power_save=1

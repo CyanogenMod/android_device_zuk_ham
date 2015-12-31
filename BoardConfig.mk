@@ -156,7 +156,7 @@ TARGET_PROVIDES_GPS_LOC_API := true
 TARGET_RIL_VARIANT := caf
 
 # Recovery
-TARGET_RECOVERY_FSTAB := device/zuk/ham/rootdir/etc/fstab.qcom
+TARGET_RECOVERY_FSTAB := device/zuk/ham/twrp.fstab
 
 # Releasetools
 TARGET_RELEASETOOLS_EXTENSIONS := device/zuk/ham
@@ -189,6 +189,20 @@ ifeq ($(BOARD_USES_QCNE),true)
 TARGET_LDPRELOAD := libNimsWrap.so
 endif
 endif
+
+# TWRP
+DEVICE_RESOLUTION := 1080x1920
+RECOVERY_GRAPHICS_USE_LINELENGTH := true
+RECOVERY_SDCARD_ON_DATA := true
+BOARD_HAS_NO_REAL_SDCARD := true
+TW_TARGET_USES_QCOM_BSP := true
+TW_NO_USB_STORAGE := true
+TW_INCLUDE_CRYPTO := true
+BOARD_SUPPRESS_SECURE_ERASE := true
+TARGET_RECOVERY_PIXEL_FORMAT := "RGB_565"
+TARGET_USERIMAGES_USE_F2FS := true
+
+PRODUCT_COPY_FILES += device/zuk/ham/twrp.fstab:recovery/root/etc/twrp.fstab
 
 # SELinux policies
 # qcom sepolicy
