@@ -97,3 +97,4 @@ int fpd_verify(int id, int *matched_id);
 int fpd_del_template(int id);
 
 #endif
+

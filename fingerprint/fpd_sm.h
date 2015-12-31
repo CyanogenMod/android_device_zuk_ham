@@ -113,3 +113,4 @@ fpd_sm_status_t fpd_sm_get_enrolled_ids(fpd_sm_t *sm, fpd_enrolled_ids_t *enroll
 fpd_sm_status_t fpd_sm_remove_id(fpd_sm_t *sm, int id);
 
 #endif
+
