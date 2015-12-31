@@ -1,0 +1,3 @@
+# Fingerprint
+allow system_server fingerprint:unix_stream_socket connectto;
+allow system_server fingerprint_socket:sock_file { read write };
