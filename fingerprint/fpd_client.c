@@ -17,7 +17,9 @@
 #define LOG_TAG "FingerPrintFpdClient"
 
 #include <cutils/log.h>
-
+#include <errno.h>
+#include <malloc.h>
+#include <string.h>
 #include <sys/socket.h>
 #include <sys/un.h>
 #include <sys/ioctl.h>

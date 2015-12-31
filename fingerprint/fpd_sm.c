@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#include <malloc.h>
+#include <string.h>
 #include <cutils/log.h>
 #include <pthread.h>
 
@@ -73,6 +75,7 @@ fpd_sm_t *fpd_sm_init() {
     pthread_mutexattr_init(&sm->state_mutex_attrs);
     pthread_mutexattr_settype(&sm->state_mutex_attrs, PTHREAD_MUTEX_RECURSIVE);
     pthread_mutex_init(&sm->state_mutex, &sm->state_mutex_attrs);
+    // Should be set as null or changed 
     sm->notify = NULL;
 
     return sm;
@@ -193,6 +196,7 @@ void *authenticate_func(void *arg_auth) {
             // Wait for finger up, or else we'd fall in the same state too
             // quickly and spam notifications to userspace.
             while (CMD_RESULT_OK != fpd_detect_finger_up());
+        }
     }
 
     pthread_mutex_lock(&sm->state_mutex);
@@ -303,7 +307,7 @@ void *enroll_func(void *arg_enroll) {
           int result = fpd_enroll("fp", &finger, points);
           if (result >= 0 && result <= 100) {
             if (result == 100) {
-            	// Always report 0 remaining steps when enrollment completes.
+              // Always report 0 remaining steps when enrollment completes.
               fpd_sm_notify_enrolled(sm, finger, 0, 0);
               break;
             }
