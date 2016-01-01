@@ -20,7 +20,10 @@
 #include <string.h>
 #include <cutils/log.h>
 #include <hardware/hardware.h>
-#include <hardware/fingerprint.h>
+
+// Coldbird: Cheap workaround for the missing 6.0 HAL for now...
+//#include <hardware/fingerprint.h>
+#include "fingerprint.h"
 
 #include "fpd_sm.h"
 #include "fpd_client.h"
