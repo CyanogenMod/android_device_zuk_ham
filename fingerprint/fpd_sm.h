@@ -18,7 +18,10 @@
 #define _FPD_SM_H
 
 #include <hardware/hardware.h>
-#include <hardware/fingerprint.h>
+
+// Coldbird: Cheap way to fix things until we got 6.0 HAL going...
+//#include <hardware/fingerprint.h>
+#include "fingerprint.h"
 
 #include "fpd_client.h"
 
