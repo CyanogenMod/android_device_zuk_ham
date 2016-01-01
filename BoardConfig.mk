@@ -156,7 +156,7 @@ TARGET_PROVIDES_GPS_LOC_API := true
 TARGET_RIL_VARIANT := caf
 
 # Recovery
-TARGET_RECOVERY_FSTAB := device/zuk/ham/twrp.fstab
+TARGET_RECOVERY_FSTAB := device/zuk/ham/rootdir/etc/fstab.qcom
 
 # Releasetools
 TARGET_RELEASETOOLS_EXTENSIONS := device/zuk/ham
