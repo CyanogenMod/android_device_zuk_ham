@@ -281,8 +281,4 @@
     <integer name="config_multiuserMaximumUsers">4</integer>
     <!--  Whether Multiuser UI should be shown -->
     <bool name="config_enableMultiUserUI">true</bool>
-
-    <!-- Permit doze mode to operate -->
-    <bool name="config_enableAutoPowerModes">true</bool>
-
 </resources>
