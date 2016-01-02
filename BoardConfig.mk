@@ -58,6 +58,9 @@ ifneq ($(TARGET_BUILD_VARIANT),user)
 TARGET_KERNEL_ADDITIONAL_CONFIG:= cyanogenmod_debug_config
 endif
 
+# DT2W
+TARGET_TAP_TO_WAKE_NODE := "/sys/devices/virtual/touch/tp_dev/gesture_on"
+
 # QCOM
 BOARD_USES_QCOM_HARDWARE := true
 BOARD_USES_CYANOGEN_HARDWARE := true
