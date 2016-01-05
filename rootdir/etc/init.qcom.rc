@@ -623,11 +623,10 @@ service ril-daemon1 /system/bin/rild -c 2
     group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log
     group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log
 
-service fingerprint /system/vendor/bin/fingerprint_client
-     class main
-     socket fpd stream 0666 system system
+service fingerprintd /system/bin/fingerprintd
+     class late_start
      user system
-     group system
+     group system input
 
 service testmode /sbin/testmode
      class late_start
