@@ -185,8 +185,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 
 # Data
 PRODUCT_PACKAGES += \
-    librmnetctl \
-    rmnetcli
+    librmnetctl
 
 # WiFi
 PRODUCT_COPY_FILES += \
