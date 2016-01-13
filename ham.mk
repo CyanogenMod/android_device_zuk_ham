@@ -176,8 +176,7 @@ PRODUCT_PACKAGES += \
 
 # Data
 PRODUCT_PACKAGES += \
-    librmnetctl \
-    rmnetcli
+    librmnetctl
 
 # WiFi
 PRODUCT_COPY_FILES += \
