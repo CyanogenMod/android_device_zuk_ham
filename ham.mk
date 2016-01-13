@@ -230,7 +230,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.isUsbOtgEnabled=true
 
 # Enable Bluetooth HFP
-PRODUCT_PROPERTY_OVERRIDES +=
+PRODUCT_PROPERTY_OVERRIDES += \
     bluetooth.hfp.client=1
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
