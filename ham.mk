@@ -280,8 +280,7 @@ PRODUCT_COPY_FILES += \
 
 # Data
 PRODUCT_PACKAGES += \
-    librmnetctl \
-    rmnetcli
+    librmnetctl
 
 # Device uses high-density artwork where available
 PRODUCT_AAPT_CONFIG := normal
