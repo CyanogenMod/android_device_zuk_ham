@@ -75,19 +75,18 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
      mm.enable.smoothstreaming=true \
-     mm.enable.qcom_parser=37491 \
      ro.qc.sdk.audio.fluencetype=fluence \
      persist.audio.fluence.voicecall=true \
      audio.offload.buffer.size.kb=32 \
-     av.offload.enable=true \
+     audio.offload.video=true \
      av.streaming.offload.enable=true \
      use.voice.path.for.pcm.voip=true \
      audio.offload.multiple.enabled=false \
      audio.offload.gapless.enabled=true \
-     tunnel.audio.encode=true \
      media.aac_51_output_enabled=true \
      audio.offload.pcm.16bit.enable=true \
-     audio.offload.pcm.24bit.enable=true
+     audio.offload.pcm.24bit.enable=true \
+     audio.deep_buffer.media=true
 
 # Camera
 PRODUCT_PACKAGES += \
@@ -101,11 +100,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     make_ext4fs \
     setup_fs
-
-# Fingerprint
-PRODUCT_PACKAGES += \
-    fingerprint.msm8974 \
-    fingerprintd
 
 # Graphics
 PRODUCT_PACKAGES += \
@@ -156,12 +150,10 @@ PRODUCT_COPY_FILES += \
     libOmxVdecHevc \
     libOmxVenc \
     libstagefrighthw \
-    qcmediaplayer \
-    tcmiface
+    qcmediaplayer
 
 PRODUCT_BOOT_JARS += \
-    qcmediaplayer \
-    tcmiface
+    qcmediaplayer
 
 # Power
 PRODUCT_PACKAGES += \
@@ -270,7 +262,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
     frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
     frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \
-    frameworks/native/data/etc/android.hardware.fingerprint.xml:system/etc/permissions/android.hardware.fingerprint.xml \
     frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
     frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
     frameworks/native/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.compass.xml \

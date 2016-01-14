@@ -29,6 +29,9 @@ TARGET_NO_RADIOIMAGE := true
 TARGET_BOARD_PLATFORM := msm8974
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno330
 
+# Build with Clang by default
+USE_CLANG_PLATFORM_BUILD := true
+
 # Architecture
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
@@ -39,11 +42,10 @@ TARGET_CPU_SMP := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
 
 # Kernel
-BOARD_CUSTOM_BOOTIMG_MK := device/zuk/ham/mkbootimg.mk
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
-BOARD_KERNEL_TAGS_OFFSET := 0x01E00000
-BOARD_RAMDISK_OFFSET := 0x02000000
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000 --tags_offset 0x01e00000
+BOARD_DTBTOOL_ARGS := -2
 BOARD_KERNEL_SEPARATED_DT := true
 TARGET_KERNEL_ARCH := arm
 BOARD_KERNEL_CMDLINE := console=tty60,115200,n8 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x3b7 ehci-hcd.park=3 androidboot.bootdevice=msm_sdcc.1 vmalloc=480M androidboot.selinux=permissive
@@ -52,6 +54,7 @@ BOARD_KERNEL_CMDLINE := console=tty60,115200,n8 androidboot.hardware=qcom user_d
 # The actual Chroma-kernel source is getting pulled via a local manifest
 TARGET_KERNEL_SOURCE := kernel/cyanogen/msm8974
 TARGET_KERNEL_CONFIG := cyanogenmod_k9_defconfig
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-linux-androideabi-
 
 # Enable DIAG on debug builds
 ifneq ($(TARGET_BUILD_VARIANT),user)
