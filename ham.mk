@@ -21,9 +21,6 @@ endif
 # overlays
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay vendor/extra/overlays/phone-1080p
 
-# Haters gonna hate..
-PRODUCT_CHARACTERISTICS := nosdcard
-
 # Boot animation
 TARGET_SCREEN_HEIGHT := 1920
 TARGET_SCREEN_WIDTH := 1080
@@ -98,7 +95,6 @@ PRODUCT_PACKAGES += \
 
 # Filesystem
 PRODUCT_PACKAGES += \
-    make_ext4fs \
     setup_fs
 
 # Graphics
@@ -177,15 +173,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thermal-engine.conf:system/etc/thermal-engine-8974.conf
 
-# USB
-PRODUCT_PACKAGES += \
-    com.android.future.usb.accessory
-
-# Set default USB interface
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-     persist.sys.usb.config=mtp
-
-
 # WiFi
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)//wifi/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
@@ -223,10 +210,6 @@ PRODUCT_PACKAGES += \
     AntHalService \
     com.dsi.ant.antradio_library \
     libantradio
-
-# Enable USB OTG interface
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.sys.isUsbOtgEnabled=true
 
 # Enable Bluetooth HFP
 PRODUCT_PROPERTY_OVERRIDES += \

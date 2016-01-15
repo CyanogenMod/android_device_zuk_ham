@@ -88,9 +88,6 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/zuk/ham/bluetooth
 TARGET_USE_VENDOR_CAMERA_EXT := true
 USE_DEVICE_SPECIFIC_CAMERA := true
 
-# Charger
-BOARD_CHARGER_DISABLE_INIT_BLANK := true
-
 # CM Hardware
 BOARD_HARDWARE_CLASS += device/zuk/ham/cmhw
 
@@ -116,7 +113,6 @@ TARGET_CONTINUOUS_SPLASH_ENABLED := true
 TARGET_USES_C2D_COMPOSITION := true
 TARGET_USES_ION := true
 OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
-HAVE_ADRENO_SOURCE:= false
 VSYNC_EVENT_PHASE_OFFSET_NS := 7500000
 SF_VSYNC_EVENT_PHASE_OFFSET_NS := 5000000
 TARGET_USE_COMPAT_GRALLOC_PERFORM := true
@@ -147,7 +143,6 @@ TARGET_USES_QCOM_WCNSS_QMI       := true
 TARGET_USES_WCNSS_MAC_ADDR_REV   := true
 
 # Wifi - EAP-SIM
-#CONFIG_EAP_PROXY                 := qmi
 CONFIG_EAP_PROXY_DUAL_SIM        := true
 
 # Filesystem
@@ -179,15 +174,10 @@ TARGET_RELEASETOOLS_EXTENSIONS := device/zuk/ham
 # Use HW crypto for ODE
 TARGET_HW_DISK_ENCRYPTION := true
 
-# Added to indicate that protobuf-c is supported in this build
-PROTOBUF_SUPPORTED := true
-
 # ANT+ - TODO: Confirm this - TODO: Confirm this - TODO: Confirm this - TODO: Confirm this
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 
-# Include an expanded selection of fonts
-EXTENDED_FONT_FOOTPRINT := true
-
+# Enable dexpreopt to reduce first boot time
 ifeq ($(HOST_OS),linux)
   ifeq ($(call match-word-in-list,$(TARGET_BUILD_VARIANT),user),true)
     ifeq ($(WITH_DEXPREOPT),)
@@ -196,10 +186,11 @@ ifeq ($(HOST_OS),linux)
   endif
 endif
 
-# inherit from the proprietary version
+# inherit from QC proprietary
 ifneq ($(QCPATH),)
 -include $(QCPATH)/common/msm8974/BoardConfigVendor.mk
 
+# QCNE
 ifeq ($(BOARD_USES_QCNE),true)
 TARGET_LDPRELOAD := libNimsWrap.so
 endif
