@@ -78,10 +78,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     charger_res_images
 
-# Filesystem
-PRODUCT_PACKAGES += \
-    setup_fs
-
 # Graphics
 PRODUCT_PACKAGES += \
     copybit.msm8974 \
