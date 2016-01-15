@@ -70,21 +70,6 @@ PRODUCT_PACKAGES += \
     libtfa98xx \
     tinymix
 
-PRODUCT_PROPERTY_OVERRIDES += \
-     mm.enable.smoothstreaming=true \
-     ro.qc.sdk.audio.fluencetype=fluence \
-     persist.audio.fluence.voicecall=true \
-     audio.offload.buffer.size.kb=32 \
-     audio.offload.video=true \
-     av.streaming.offload.enable=true \
-     use.voice.path.for.pcm.voip=true \
-     audio.offload.multiple.enabled=false \
-     audio.offload.gapless.enabled=true \
-     media.aac_51_output_enabled=true \
-     audio.offload.pcm.16bit.enable=true \
-     audio.offload.pcm.24bit.enable=true \
-     audio.deep_buffer.media=true
-
 # Camera
 PRODUCT_PACKAGES += \
     camera.msm8974
@@ -155,10 +140,6 @@ PRODUCT_BOOT_JARS += \
 PRODUCT_PACKAGES += \
     power.msm8974
 
-# IO Scheduler
-PRODUCT_PROPERTY_OVERRIDES += \
-    sys.io.scheduler=bfq
-
 # Keylayouts
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
@@ -210,31 +191,6 @@ PRODUCT_PACKAGES += \
     AntHalService \
     com.dsi.ant.antradio_library \
     libantradio
-
-# Enable Bluetooth HFP
-PRODUCT_PROPERTY_OVERRIDES += \
-    bluetooth.hfp.client=1
-
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    camera2.portability.force_api=1
-
-# System properties
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.hwc.mdpcomp.enable=true \
-    persist.timed.enable=true \
-    ro.opengles.version=196608 \
-    ro.qualcomm.bt.hci_transport=smd \
-    ro.telephony.default_network=9 \
-    ro.use_data_netmgrd=true \
-    persist.data.netmgrd.qos.enable=true \
-    persist.data.tcpackprio.enable=true \
-    ro.data.large_tcp_window_size=true \
-    telephony.lteOnCdmaDevice=1 \
-    wifi.interface=wlan0 \
-    wifi.supplicant_scan_interval=15 \
-    ro.qualcomm.perf.cores_online=2 \
-    ro.vendor.extension_library=libqti-perfd-client.so \
-    ro.telephony.call_ring.multiple=0
 
 # Permissions
 PRODUCT_COPY_FILES += \
