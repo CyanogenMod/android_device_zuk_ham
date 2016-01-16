@@ -66,3 +66,4 @@ wifi.supplicant_scan_interval=15
 ro.qualcomm.perf.cores_online=2
 ro.vendor.extension_library=libqti-perfd-client.so
 ro.telephony.call_ring.multiple=0
+persist.camera.4k2k.enable=1
