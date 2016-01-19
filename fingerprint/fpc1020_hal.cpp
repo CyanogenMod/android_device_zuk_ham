@@ -22,6 +22,7 @@
 #include <hardware/fingerprint.h>
 #include <utils/KeyedVector.h>
 #include <utils/String8.h>
+#include <endian.h>
 #include "Fpc1020Sensor.h"
 
 typedef struct {
