@@ -143,6 +143,7 @@ TARGET_USES_QCOM_WCNSS_QMI       := true
 TARGET_USES_WCNSS_MAC_ADDR_REV   := true
 
 # Wifi - EAP-SIM
+CONFIG_EAP_PROX                  := qmi
 CONFIG_EAP_PROXY_DUAL_SIM        := true
 
 # Filesystem
