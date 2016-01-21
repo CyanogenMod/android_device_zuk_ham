@@ -1,4 +1,2 @@
-key 158   BACK           VIRTUAL
-key 183   HOME           VIRTUAL
-key 249   VOLUME_UP      VIRTUAL
-key 254   VOLUME_DOWN    VIRTUAL
+key 249   HOME          VIRTUAL
+key 254   APP_SWITCH    VIRTUAL
