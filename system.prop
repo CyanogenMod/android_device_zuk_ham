@@ -71,4 +71,4 @@ ro.telephony.call_ring.multiple=0
 persist.camera.4k2k.enable=1
 
 # OTA Server URL
-cm.updater.uri=http://download.ambriel.net/cyanogenmod
+cm.updater.uri=http://download.ambriel.net/cyanogenmod/api
