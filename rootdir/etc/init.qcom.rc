@@ -25,10 +25,6 @@ on init
     mkdir /persist 0771 system system
     mkdir /firmware 0771 system system
 
-    # Create Legacy Symlinks (a bunch of apps still require them it seems)
-    symlink /sdcard /mnt/sdcard0
-    symlink /sdcard /storage/sdcard0
-
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
