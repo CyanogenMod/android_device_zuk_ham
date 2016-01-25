@@ -74,13 +74,9 @@
         <MediaCodec name="OMX.qcom.video.decoder.mpeg4" type="video/mp4v-es" update="true">
             <Limit name="measured-frame-rate-480x360" range="871-871" />
         </MediaCodec>
-        <MediaCodecs>
-            <Decoders>
-                <MediaCodec name="OMX.ffmpeg.mpeg4.decoder" type="video/mp4v-es" update="true">
-                    <Limit name="measured-frame-rate-480x360" range="1796-1796" />
-                </MediaCodec>
-            </Decoders>
-        </MediaCodecs>
+        <MediaCodec name="OMX.ffmpeg.mpeg4.decoder" type="video/mp4v-es" update="true">
+            <Limit name="measured-frame-rate-480x360" range="1796-1796" />
+        </MediaCodec>
         <MediaCodec name="OMX.qcom.video.decoder.vp8" type="video/x-vnd.on2.vp8" update="true">
             <Limit name="measured-frame-rate-320x180" range="626-626" />
             <Limit name="measured-frame-rate-640x360" range="592-592" />
