@@ -63,8 +63,6 @@ private:
 
 }; /*namespace qcamera*/
 
-extern "C" {
 extern camera_module_t HAL_MODULE_INFO_SYM;
-}
 
 #endif /* ANDROID_HARDWARE_QUALCOMM_CAMERA_H */

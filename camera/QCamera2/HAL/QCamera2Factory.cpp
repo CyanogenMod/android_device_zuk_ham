@@ -36,8 +36,6 @@
 
 #include "QCamera2Factory.h"
 
-void initHALModuleInfo();
-
 namespace qcamera {
 
 QCamera2Factory gQCamera2Factory;
@@ -54,7 +52,6 @@ QCamera2Factory gQCamera2Factory;
 QCamera2Factory::QCamera2Factory()
 {
     mNumOfCameras = get_num_of_cameras();
-    initHALModuleInfo();
 }
 
 /*===========================================================================

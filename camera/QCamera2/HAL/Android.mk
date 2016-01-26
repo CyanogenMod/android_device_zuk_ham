@@ -17,7 +17,7 @@ LOCAL_SRC_FILES := \
         QCameraThermalAdapter.cpp \
         wrapper/QualcommCamera.cpp
 
-LOCAL_CFLAGS = -w -DDEFAULT_DENOISE_MODE_ON
+LOCAL_CFLAGS = -Wall -Werror -DDEFAULT_DENOISE_MODE_ON
 #Debug logs are enabled
 #LOCAL_CFLAGS += -DDISABLE_DEBUG_LOG
 
@@ -62,4 +62,4 @@ LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SHARED_LIBRARY)
 
-include $(LOCAL_PATH)/test/Android.mk
+#include $(LOCAL_PATH)/test/Android.mk
