@@ -1,4 +1,5 @@
 ifneq ($(QCPATH),)
+ifneq ($(BUILD_TINY_ANDROID),true)
 
 LOCAL_PATH := $(call my-dir)
 
@@ -48,6 +49,7 @@ LOCAL_COPY_HEADERS:= \
 
 ## Includes
 LOCAL_C_INCLUDES := \
+    $(call project-path-for,qcom-gps)/core \
     $(TARGET_OUT_HEADERS)/libloc_core \
     $(TARGET_OUT_HEADERS)/qmi-framework/inc \
     $(TARGET_OUT_HEADERS)/qmi/inc \
@@ -59,3 +61,4 @@ LOCAL_PRELINK_MODULE := false
 include $(BUILD_SHARED_LIBRARY)
 
 endif # not BUILD_TINY_ANDROID
+endif # QCPATH
