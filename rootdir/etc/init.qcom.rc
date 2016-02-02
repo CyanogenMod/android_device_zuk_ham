@@ -609,6 +609,7 @@ service fingerprintd /system/bin/fingerprintd
     user system
 
 service testmode /sbin/testmode
+     seclabel u:r:testmode:s0
      class late_start
      user root
      oneshot

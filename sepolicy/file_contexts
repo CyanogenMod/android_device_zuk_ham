@@ -26,3 +26,7 @@
 
 # FRP
 /dev/block/bootdevice/by-name/frp               u:object_r:frp_block_device:s0
+
+# TTY
+/dev/ttyGS2                                     u:object_r:tty_device:s0
+/dev/ttyGS1                                     u:object_r:tty_device:s0
