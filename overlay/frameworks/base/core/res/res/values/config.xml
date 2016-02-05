@@ -296,4 +296,7 @@
 
     <!-- Support double tap to wake -->
     <bool name="config_supportDoubleTapWake">true</bool>
+
+    <!-- Configuration to play sms ringtone during MO/MT call -->
+    <bool name="config_sms_ringtone_incall">true</bool>
 </resources>
