@@ -16,12 +16,12 @@ import /init.qcom.usb.rc
 import /init.qcom.power.rc
 
 on early-init
-    mount debugfs debugfs /sys/kernel/debug
     chown system system /sys/kernel/debug/kgsl/proc
 
 on init
     # Set permissions for persist partition
     mkdir /persist 0771 system system
+    mkdir /oem 0550 root root
 
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
@@ -303,6 +303,8 @@ on fs
     mkdir /persist/data/sfs 0700 system system
     mkdir /persist/data/tz 0700 system system
 
+    mount ext4 /dev/block/bootdevice/by-name/mrd /oem ro nosuid nodev context=u:object_r:oemfs:s0
+
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd
 
@@ -507,6 +509,12 @@ service time_daemon /system/bin/time_daemon
 on property:vold.decrypt=trigger_restart_framework
    start config_bluetooth
    start wcnss-service
+
+service config_bt_addr /system/bin/btnvtool -O
+    class core
+    user bluetooth
+    group bluetooth radio
+    oneshot
 
 service config_bluetooth /system/bin/sh /system/etc/init.qcom.bt.sh "onboot"
     class core
