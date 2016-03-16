@@ -1,0 +1,78 @@
+type testmode, domain;
+
+domain_auto_trans(init, rootfs, testmode)
+binder_use(testmode)
+
+allow testmode lmkd:dir { getattr search };
+allow testmode lmkd:file { read open };
+
+allow testmode kernel:dir { getattr search };
+allow testmode kernel:file { read open };
+
+allow testmode init:dir { getattr search };
+allow testmode init:file { read open };
+allow testmode init:unix_stream_socket connectto;
+
+allow testmode audio_device:chr_file { read write ioctl open };
+
+allow testmode healthd:dir { getattr search };
+allow testmode healthd:file { read open };
+
+allow testmode tty_device:chr_file { read write ioctl open };
+allow testmode console_device:chr_file { read write ioctl open };
+allow testmode graphics_device:dir search;
+allow testmode graphics_device:chr_file { read write ioctl open };
+allow testmode smd_device:chr_file { read write open ioctl };
+
+allow testmode input_device:dir { read open search };
+allow testmode input_device:chr_file { read ioctl open };
+
+allow testmode ctl_default_prop:property_service set;
+
+allow testmode kmsg_device:chr_file { write open };
+allow testmode logd:dir { getattr search };
+allow testmode logd:file { read open };
+
+allow testmode persist_file:dir { write remove_name add_name search };
+allow testmode persist_file:file { rename ioctl create unlink open append getattr };
+
+allow testmode property_socket:sock_file write;
+
+allow testmode self:capability dac_override;
+allow testmode self:netlink_kobject_uevent_socket read;
+allow testmode self:netlink_kobject_uevent_socket { bind create setopt };
+
+allow testmode shell_exec:file { read execute open execute_no_trans };
+
+allow testmode sysfs:file write;
+allow testmode sysfs_devices_system_cpu:file write;
+
+allow testmode system_prop:property_service set;
+allow testmode system_radio_prop:property_service set;
+
+allow testmode media_rw_data_file:dir { write remove_name create add_name };
+allow testmode media_rw_data_file:file { write getattr read create unlink open };
+
+allow testmode modem_efs_partition_device:blk_file { read getattr open };
+
+allow testmode qmuxd:unix_stream_socket connectto;
+allow testmode qmuxd_socket:dir { write add_name };
+allow testmode qmuxd_socket:sock_file { write create };
+
+allow testmode root_block_device:blk_file { read ioctl open };
+
+allow testmode sensors_persist_file:file { read getattr open };
+
+allow testmode servicemanager:dir { getattr search };
+allow testmode servicemanager:file read;
+
+allow testmode system_file:file execute_no_trans;
+
+allow testmode ueventd:dir { getattr search };
+allow testmode ueventd:file { read open };
+
+allow testmode vold:dir { getattr search };
+allow testmode vold:file { read open };
+
+allow testmode proc_sysrq:file write;
+allow testmode self:capability sys_boot;

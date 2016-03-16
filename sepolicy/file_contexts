@@ -1,16 +1,32 @@
+# Camera
 /data/cam_socket.*                                 u:object_r:camera_socket:s0
 
+# Vibrator
 /sys/devices/virtual/timed_output/vibrator/vtg_level   u:object_r:vibeamp_sysfs:s0
 
+# MAC Addresses
 /persist/.genmac                                u:object_r:wifi_data_file:s0
 /persist/.bt_nv.bin                             u:object_r:bluetooth_data_file:s0
+
+# Sensors
 /persist/sns.reg                                u:object_r:sensors_persist_file:s0
 
+# NXP Amplifier
 /dev/tfa9890                                    u:object_r:audio_device:s0
 
+# Touch Panel
 /sys/devices/virtual/touch/tp_dev/key_enable    u:object_r:touchpanel_sysfs:s0
 /sys/devices/gpio_keys.83/disabled_keys         u:object_r:touchpanel_sysfs:s0
 
+# Fingerprint
+/persist/fingerprintapp(/.*)?                                      u:object_r:fingerprint_persist_file:s0
 /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/enable_navi u:object_r:fingerprint_sysfs:s0
-/system/vendor/bin/fingerprint_client                              u:object_r:fingerprint_exec:s0
-/dev/socket/fpd                                                    u:object_r:fingerprint_socket:s0
+/sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/irq         u:object_r:fingerprint_sysfs:s0
+/dev/fpc1020                                                       u:object_r:fingerprint_device:s0
+
+# FRP
+/dev/block/bootdevice/by-name/frp               u:object_r:frp_block_device:s0
+
+# TTY
+/dev/ttyGS2                                     u:object_r:tty_device:s0
+/dev/ttyGS1                                     u:object_r:tty_device:s0
