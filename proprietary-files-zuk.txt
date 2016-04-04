@@ -68,7 +68,6 @@
 -vendor/lib/libmmcamera_ov8865_sunny.so
 -vendor/lib/libmmcamera_tintless_algo.so
 -vendor/lib/libmmcamera_tintless_bg_pca_algo.so
--vendor/lib/libmmcamera_tuning.so
 -vendor/lib/libmmcamera_wavelet_lib.so
 -vendor/lib/libmmipl.so
 -vendor/lib/libmmjpeg.so
@@ -83,7 +82,8 @@
 -etc/firmware/cpp_firmware_v1_2_0.fw
 
 # Fingerprint
-vendor/bin/fingerprint_client
+-lib/hw/fingerprint.msm8974.so
+-lib/lib_fpc_tac_shared.so
 
 # Custom ECC
 vendor/etc/qcril.db

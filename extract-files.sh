@@ -13,7 +13,11 @@ for FILE in `cat $PROPRIETARY_FILES | grep -v ^# | grep -v ^$ `; do
     if [ ! -d $BASE/$DIR ]; then
         mkdir -p $BASE/$DIR
     fi
-    adb pull /system/$FILE $BASE/$FILE
+    if [ "$#" -eq 1 ]; then
+        cp $1/$FILE $BASE/$FILE
+    else
+        adb pull /system/$FILE $BASE/$FILE
+    fi
 done
 
 ./setup-makefiles.sh

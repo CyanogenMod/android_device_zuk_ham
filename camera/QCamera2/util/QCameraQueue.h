@@ -31,6 +31,8 @@
 #define __QCAMERA_QUEUE_H__
 
 #include <pthread.h>
+#include <string.h>
+#include <stdlib.h>
 #include "cam_list.h"
 
 namespace qcamera {

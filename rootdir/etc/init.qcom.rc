@@ -17,31 +17,12 @@ import /init.qcom.ssr.rc
 import /init.qcom.power.rc
 
 on early-init
-    mount debugfs debugfs /sys/kernel/debug
     chown system system /sys/kernel/debug/kgsl/proc
 
 on init
     # Set permissions for persist partition
     mkdir /persist 0771 system system
-
-    # See storage config details at http://source.android.com/tech/storage/
-    mkdir /mnt/shell/emulated 0700 shell shell
-    mkdir /storage/emulated 0555 root root
-    mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw
-    mkdir /mnt/media_rw/usbdisk 0700 media_rw media_rw
-    mkdir /storage/sdcard1 0700 root root
-    mkdir /storage/usbdisk 0700 root root
-
-    export EXTERNAL_STORAGE /storage/emulated/legacy
-    export SECONDARY_STORAGE /storage/sdcard1
-    export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
-    export EMULATED_STORAGE_TARGET /storage/emulated
-
-    # Support legacy paths
-    symlink /storage/emulated/legacy /sdcard
-    symlink /storage/emulated/legacy /mnt/sdcard
-    symlink /storage/emulated/legacy /storage/sdcard0
-    symlink /mnt/shell/emulated/0 /storage/emulated/legacy
+    mkdir /oem 0550 root root
 
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
@@ -75,6 +56,8 @@ on boot
     #Create QMUX deamon socket area
     mkdir /dev/socket/qmux_radio 0770 radio radio
     chmod 2770 /dev/socket/qmux_radio
+    mkdir /dev/socket/netmgr 0770 radio radio
+    chmod 2770 /dev/socket/netmgr
     mkdir /dev/socket/qmux_audio 0770 media audio
     chmod 2770 /dev/socket/qmux_audio
     mkdir /dev/socket/qmux_bluetooth 0770 bluetooth bluetooth
@@ -222,6 +205,10 @@ on post-fs-data
     mkdir /data/misc/sensors 0775 system system
     restorecon_recursive /data/misc/sensors
 
+    # Create the directories used by the fingerprint implementation
+    mkdir /persist/fingerprintapp 0770 system system
+    restorecon_recursive /persist/fingerprintapp
+
     # Create the directories used by the Wireless subsystem
     mkdir /data/misc/wifi 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
@@ -316,6 +303,8 @@ on fs
     mkdir /persist/data 0700 system system
     mkdir /persist/data/sfs 0700 system system
     mkdir /persist/data/tz 0700 system system
+
+    mount ext4 /dev/block/bootdevice/by-name/mrd /oem ro nosuid nodev context=u:object_r:oemfs:s0
 
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd
@@ -505,7 +494,7 @@ service mpdecision /system/bin/mpdecision --avg_comp
    group system
    disabled
 
-service thermal-engine /system/bin/thermal-engine
+service thermal-engine /system/vendor/bin/thermal-engine
    class main
    user root
    group root
@@ -521,6 +510,12 @@ service time_daemon /system/bin/time_daemon
 on property:vold.decrypt=trigger_restart_framework
    start config_bluetooth
    start wcnss-service
+
+service config_bt_addr /system/bin/btnvtool -O
+    class core
+    user bluetooth
+    group bluetooth radio
+    oneshot
 
 service config_bluetooth /system/bin/sh /system/etc/init.qcom.bt.sh "onboot"
     class core
@@ -603,9 +598,6 @@ service ril-daemon1 /system/bin/rild -c 2
     group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log
     group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log
 
-service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
-    class late_start
-
 service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/sdcard1 /storage/sdcard1
     class late_start
     disabled
@@ -620,13 +612,13 @@ service ssr_diag /system/bin/ssr_diag
     group system
     disabled
 
-service fingerprint /system/vendor/bin/fingerprint_client
-     class main
-     socket fpd stream 0666 system system
-     user system
-     group system
+# fingerprint daemon
+service fingerprintd /system/bin/fingerprintd
+    class late_start
+    user system
 
 service testmode /sbin/testmode
+     seclabel u:r:testmode:s0
      class late_start
      user root
      oneshot

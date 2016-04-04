@@ -1,3 +1,0 @@
-allow init diag_exec:file execute_no_trans;
-allow init fuse:dir { add_name create remove_name write };
-allow init fuse:file { create getattr open read unlink write };
