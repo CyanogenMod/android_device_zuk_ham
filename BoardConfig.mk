@@ -76,7 +76,6 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
 # Camera
 TARGET_USE_VENDOR_CAMERA_EXT := true
 USE_DEVICE_SPECIFIC_CAMERA := true
-USE_DEVICE_SPECIFIC_GPS := true
 
 # Charger
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
@@ -154,8 +153,8 @@ TARGET_PROVIDES_LIBLIGHT := true
 TARGET_NO_RPC := true
 
 # GPS HAL lives here
-TARGET_GPS_HAL_PATH := $(DEVICE_PATH)/gps
-TARGET_PROVIDES_GPS_LOC_API := true
+USE_DEVICE_SPECIFIC_GPS := true
+USE_DEVICE_SPECIFIC_LOC_API := true
 
 # PowerHAL
 TARGET_POWERHAL_VARIANT := qcom
@@ -177,9 +176,6 @@ PROTOBUF_SUPPORTED := true
 
 # ANT+ - TODO: Confirm this - TODO: Confirm this - TODO: Confirm this - TODO: Confirm this
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
-
-# Include an expanded selection of fonts
-EXTENDED_FONT_FOOTPRINT := true
 
 ifeq ($(HOST_OS),linux)
   ifeq ($(call match-word-in-list,$(TARGET_BUILD_VARIANT),user),true)
