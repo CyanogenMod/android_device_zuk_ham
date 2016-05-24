@@ -24,7 +24,7 @@ $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 PRODUCT_NAME := cm_ham
 PRODUCT_DEVICE := ham
 PRODUCT_MANUFACTURER := Zuk
-PRODUCT_MODEL := Z1
+PRODUCT_MODEL := ZUK Z1
 
 PRODUCT_GMS_CLIENTID_BASE := android-lenovo
 
