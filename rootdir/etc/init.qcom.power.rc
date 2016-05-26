@@ -97,3 +97,15 @@ on class_start:late_start
 
 on property:init.svc.recovery=running
     trigger enable-low-power
+
+on property:recovery.perf.mode=1
+    stop mpdecision
+    write /sys/devices/system/cpu/cpu1/online 1
+    write /sys/devices/system/cpu/cpu2/online 1
+    write /sys/devices/system/cpu/cpu3/online 1
+
+on property:recovery.perf.mode=0
+    stop mpdecision
+    write /sys/devices/system/cpu/cpu1/online 0
+    write /sys/devices/system/cpu/cpu2/online 0
+    write /sys/devices/system/cpu/cpu3/online 0
