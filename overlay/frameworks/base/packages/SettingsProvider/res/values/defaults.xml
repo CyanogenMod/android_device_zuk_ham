@@ -17,6 +17,8 @@
  */
 -->
 <resources>
+    <!-- Default state of auto brightness -->
+    <bool name="def_screen_brightness_automatic_mode">true</bool>
     <!-- Default state of tap to wake -->
     <bool name="def_double_tap_to_wake">false</bool>
 </resources>
