@@ -188,10 +188,12 @@ endif
 # inherit from the proprietary version
 ifneq ($(QCPATH),)
 -include $(QCPATH)/common/msm8974/BoardConfigVendor.mk
+endif
+
+BOARD_USES_QCNE := true
 
 ifeq ($(BOARD_USES_QCNE),true)
 TARGET_LDPRELOAD := libNimsWrap.so
-endif
 endif
 
 # SELinux policies
