@@ -137,7 +137,7 @@ etc/firmware/venus.mdt
 -etc/firmware/a330_pm4.fw
 
 # Media
-+vendor/lib/libDivxDrm.so
+-vendor/lib/libDivxDrm.so
 -vendor/lib/libHevcSwDecoder.so
 -vendor/lib/libI420colorconvert.so
 -vendor/lib/libmm-color-convertor.so
@@ -146,8 +146,8 @@ etc/firmware/venus.mdt
 -vendor/lib/libOmxEvrcDec.so
 -vendor/lib/libOmxQcelp13Dec.so
 -vendor/lib/libOmxWmaDec.so
-+vendor/lib/libmmosal.so
-+vendor/lib/libSHIMDivxDrm.so
+-vendor/lib/libmmosal.so
+-vendor/lib/libSHIMDivxDrm.so
 
 # Postprocessing
 -vendor/bin/mm-pp-daemon
