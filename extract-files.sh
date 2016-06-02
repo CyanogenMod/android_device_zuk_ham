@@ -14,7 +14,7 @@ for FILE in `cat $PROPRIETARY_FILES | grep -v ^# | grep -v ^$ `; do
         mkdir -p $BASE/$DIR
     fi
     if [ "$#" -eq 1 ]; then
-        cp $1/$FILE $BASE/$FILE
+        cp $1/system/$FILE $BASE/$FILE
     else
         adb pull /system/$FILE $BASE/$FILE
     fi
