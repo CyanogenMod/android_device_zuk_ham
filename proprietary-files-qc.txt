@@ -5,6 +5,7 @@
 
 # Perf
 -bin/mpdecision
+-vendor/lib/libqti-perfd-client.so
 
 # ADSP
 -bin/adsprpcd
