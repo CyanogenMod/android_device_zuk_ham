@@ -22,5 +22,5 @@
          turn the screen on
          NOTE ! - Enable for devices that have a fast response proximity sensor -->
     <bool name="config_proximityCheckOnWake">true</bool>
-    <integer name="config_proximityCheckTimeout">100</integer>
+    <integer name="config_proximityCheckTimeout">150</integer>
 </resources>
