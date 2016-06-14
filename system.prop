@@ -39,3 +39,7 @@ ro.ril.em_redial_vt_failover=true
 
 # Factory reset protection
 ro.frp.pst=/dev/block/bootdevice/by-name/frp
+
+# Properties from ham.mk
+persist.camera.4k2k.enable=1
+
