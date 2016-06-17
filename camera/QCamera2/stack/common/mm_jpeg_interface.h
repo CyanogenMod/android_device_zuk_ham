@@ -235,6 +235,8 @@ typedef struct {
   /* 3a parameters */
   mm_jpeg_exif_params_t cam_exif_params;
 
+  /* work buf */
+  mm_jpeg_buf_t work_buf;
 } mm_jpeg_encode_job_t;
 
 typedef struct {

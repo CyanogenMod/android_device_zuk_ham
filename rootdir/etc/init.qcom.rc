@@ -23,30 +23,28 @@ on early-init
 on init
     # Set permissions for persist partition
     mkdir /persist 0771 system system
-
-    # See storage config details at http://source.android.com/tech/storage/
-    mkdir /mnt/shell/emulated 0700 shell shell
-    mkdir /storage/emulated 0555 root root
-    mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw
-    mkdir /mnt/media_rw/usbdisk 0700 media_rw media_rw
-    mkdir /storage/sdcard1 0700 root root
-    mkdir /storage/usbdisk 0700 root root
-
-    export EXTERNAL_STORAGE /storage/emulated/legacy
-    export SECONDARY_STORAGE /storage/sdcard1
-    export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
-    export EMULATED_STORAGE_TARGET /storage/emulated
-
-    # Support legacy paths
-    symlink /storage/emulated/legacy /sdcard
-    symlink /storage/emulated/legacy /mnt/sdcard
-    symlink /storage/emulated/legacy /storage/sdcard0
-    symlink /mnt/shell/emulated/0 /storage/emulated/legacy
+    mkdir /firmware 0771 system system
 
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
     write /sys/kernel/boot_adsp/boot 1
+
+on fs
+    mount_all ./fstab.qcom
+    restorecon_recursive /persist
+
+    mkdir /dev/usb-ffs 0770 shell shell
+    mkdir /dev/usb-ffs/adb 0770 shell shell
+    mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000
+    write /sys/class/android_usb/android0/f_ffs/aliases adb
+    mkdir /dev/bus 0755 root root
+    mkdir /dev/bus/usb 0755 root root
+
+    restorecon_recursive /persist
+    mkdir /persist/data 0700 system system
+    mkdir /persist/data/sfs 0700 system system
+    mkdir /persist/data/tz 0700 system system
 
 on boot
     # bluetooth
@@ -82,25 +80,34 @@ on boot
     mkdir /dev/socket/qmux_gps 0770 gps gps
     chmod 2770 /dev/socket/qmux_gps
 
+    #Create NETMGR daemon socket area
+    mkdir /dev/socket/netmgr 0750 radio radio
+
+    mkdir /persist/bluetooth 0770 bluetooth bluetooth
+
+    #charger
+    chown root system /sys/module/qpnp_charger/parameters/charger_monitor
+    chown root system /sys/class/power_supply/battery/input_current_max
+    chown root system /sys/class/power_supply/battery/input_current_trim
+    chown root system /sys/class/power_supply/battery/voltage_min
+    chmod 0644 /sys/module/qpnp_charger/parameters/charger_monitor
+    chmod 0644 /sys/class/power_supply/battery/input_current_max
+    chmod 0644 /sys/class/power_supply/battery/input_current_trim
+    chmod 0644 /sys/class/power_supply/battery/voltage_min
+
+    # Camera Recording
+    mkdir /dev/video
+    symlink /dev/video32 /dev/video/venus_dec
+    symlink /dev/video33 /dev/video/venus_enc
+
+    # Allow QMUX daemon to assign port open wait time
+    chown radio radio /sys/devices/virtual/hsicctl/hsicctl0/modem_wait
+
     # For setting tcp delayed ack
     chown system system /sys/kernel/ipv4/tcp_delack_seg
     chown system system /sys/kernel/ipv4/tcp_use_userconfig
 
-#   Define TCP buffer sizes for various networks
-#   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
-    setprop net.tcp.buffersize.default 4096,87380,110208,4096,16384,110208
-    setprop net.tcp.buffersize.lte     524288,1048576,2097152,262144,524288,1048576
-    setprop net.tcp.buffersize.umts    4094,87380,110208,4096,16384,110208
-    setprop net.tcp.buffersize.hspa    4094,87380,1220608,4096,16384,1220608
-    setprop net.tcp.buffersize.hsupa   4094,87380,1220608,4096,16384,1220608
-    setprop net.tcp.buffersize.hsdpa   4094,87380,1220608,4096,16384,1220608
-    setprop net.tcp.buffersize.hspap   4094,87380,1220608,4096,16384,1220608
-    setprop net.tcp.buffersize.edge    4093,26280,35040,4096,16384,35040
-    setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
-    setprop net.tcp.buffersize.evdo    4094,87380,262144,4096,16384,262144
-    setprop net.tcp.buffersize.wifi    524288,2097152,4194304,262144,524288,1048576
-
-# Define TCP delayed ack settings for WiFi & LTE
+    # Define TCP delayed ack settings for WiFi & LTE
     setprop net.tcp.delack.default     1
     setprop net.tcp.delack.wifi        20
     setprop net.tcp.delack.lte         8
@@ -108,8 +115,8 @@ on boot
     setprop net.tcp.usercfg.wifi       1
     setprop net.tcp.usercfg.lte        1
 
-#   Assign TCP buffer thresholds to be ceiling value of technology maximums
-#   Increased technology maximums should be reflected here.
+    # Assign TCP buffer thresholds to be ceiling value of technology maximums
+    # Increased technology maximums should be reflected here.
     write /proc/sys/net/core/rmem_max  2097152
     write /proc/sys/net/core/wmem_max  2097152
 
@@ -143,6 +150,33 @@ on boot
     # an ack packet comes out of order
     write /proc/sys/net/netfilter/nf_conntrack_tcp_be_liberal 1
 
+    # create symlink for fb1 as HDMI
+    symlink /dev/graphics/fb1 /dev/graphics/hdmi
+
+    # MDP idle notifier
+    chown system graphics /sys/class/graphics/fb0/idle_time
+    chmod 0664 /sys/class/graphics/fb0/idle_time
+
+    # setup permissions for fb1 related nodes
+    chown system graphics /sys/class/graphics/fb1/hpd
+    chown system graphics /sys/class/graphics/fb1/vendor_name
+    chown system graphics /sys/class/graphics/fb1/product_description
+    chmod 0664 /sys/devices/virtual/graphics/fb1/hpd
+    chmod 0664 /sys/devices/virtual/graphics/fb1/vendor_name
+    chmod 0664 /sys/devices/virtual/graphics/fb1/product_description
+
+    # Subsytem Restart
+    #adsp
+    write /sys/bus/msm_subsys/devices/subsys0/restart_level "related"
+    #modem
+    write /sys/bus/msm_subsys/devices/subsys1/restart_level "related"
+    #venus
+    write /sys/bus/msm_subsys/devices/subsys2/restart_level "related"
+
+    # Adaptive LMK
+    write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
+    write /sys/module/lowmemorykiller/parameters/vmpressure_file_min 53059
+
     # NFC local data and nfcee xml storage
     mkdir /data/nfc 0770 nfc nfc
     mkdir /data/nfc/param 0770 nfc nfc
@@ -152,22 +186,18 @@ on boot
     write /proc/sys/kernel/printk "6 6 1 7"
 
     # Fingerprint
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/adc_gain
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/adc_shift
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/capture_col_groups
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/capture_col_start
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/capture_count
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/capture_mode
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/capture_row_count
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/capture_row_start
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/capture_settings_mux
     chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/enable_navi
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/force_reset
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/gain_shift
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/input_mode
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/orientation
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/pixel_ctrl
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/pxl_ctrl
+    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/hw_reset
+    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/irq
+    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/key
+    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/wakeup
+    chmod 0666 /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/enable_navi
+    chmod 0666 /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/hw_reset
+    chmod 0666 /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/irq
+    chmod 0666 /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/key
+    chmod 0666 /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/wakeup
+    write /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/wakeup 1
+    write /sys/deviceS/f9927000.spi/spi_master/spi4/spi4.0/setup/enable_navi 1
 
     # Lights
     chown system system /sys/class/leds/button-backlight/brightness
@@ -222,6 +252,10 @@ on post-fs-data
     mkdir /data/misc/sensors 0775 system system
     restorecon_recursive /data/misc/sensors
 
+    # Create the directories used by the fingerprint implementation
+    mkdir /persist/fingerprintapp 0770 system system
+    restorecon_recursive /persist/fingerprintapp
+
     # Create the directories used by the Wireless subsystem
     mkdir /data/misc/wifi 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
@@ -268,8 +302,8 @@ on post-fs-data
     mkdir /data/audio/ 0770 media audio
 
     # Touchscreen
-    chown system system /sys/devices/virtual/touch/tp_dev/gesture_on
-    chmod 0660 /sys/devices/virtual/touch/tp_dev/gesture_on
+    chown system radio /sys/devices/virtual/touch/tp_dev/gesture_on
+    chmod 0664 /sys/devices/virtual/touch/tp_dev/gesture_on
 
     chown system system /sys/devices/virtual/graphics/fb0/aco
     chmod 0660 /sys/devices/virtual/graphics/fb0/aco
@@ -288,6 +322,9 @@ on post-fs-data
 
     setprop vold.post_fs_data_done 1
 
+    #Create folder for mm-qcamera-daemon
+    mkdir /data/camera 0770 media camera
+
     #Create PERFD deamon related dirs
     mkdir /data/misc/perfd 0755 root system
     chmod 2755 /data/misc/perfd
@@ -302,20 +339,6 @@ on post-fs-data
     exec /system/xbin/cp /vendor/etc/qcril.db /data/misc/radio/qcril.db
     chown radio radio /data/misc/radio/qcril.db
     chmod 700 /data/misc/radio/qcril.db
-
-on fs
-    mount_all ./fstab.qcom
-    mkdir /dev/usb-ffs 0770 shell shell
-    mkdir /dev/usb-ffs/adb 0770 shell shell
-    mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000
-    write /sys/class/android_usb/android0/f_ffs/aliases adb
-    mkdir /dev/bus 0755 root root
-    mkdir /dev/bus/usb 0755 root root
-
-    restorecon_recursive   /persist
-    mkdir /persist/data 0700 system system
-    mkdir /persist/data/sfs 0700 system system
-    mkdir /persist/data/tz 0700 system system
 
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd
@@ -354,14 +377,6 @@ on property:ro.data.large_tcp_window_size=true
 
 on property:persist.env.fastdorm.enabled=true
     setprop persist.radio.data_no_toggle 1
-
-service cnd /system/bin/cnd
-    class late_start
-    socket cnd stream 660 root inet
-
-service dpmd /system/bin/dpmd
-    class late_start
-    socket dpmd stream 660 root system
 
 service irsc_util /system/bin/irsc_util "/etc/sec_config"
     class main
@@ -503,9 +518,8 @@ service mpdecision /system/bin/mpdecision --avg_comp
    class main
    user root
    group system
-   disabled
 
-service thermal-engine /system/bin/thermal-engine
+service thermal-engine /system/vendor/bin/thermal-engine
    class main
    user root
    group root
@@ -519,8 +533,15 @@ service time_daemon /system/bin/time_daemon
    group root
 
 on property:vold.decrypt=trigger_restart_framework
+   start config_bt_addr
    start config_bluetooth
    start wcnss-service
+
+service config_bt_addr /system/bin/btnvtool -O
+   class core
+   user bluetooth
+   group bluetooth radio
+   oneshot
 
 service config_bluetooth /system/bin/sh /system/etc/init.qcom.bt.sh "onboot"
     class core
@@ -557,13 +578,6 @@ service wcnss-service /system/bin/wcnss_service
     group system wifi qcom_diag radio
     oneshot
 
-service ppd /system/bin/mm-pp-daemon
-    class late_start
-    disabled
-    user system
-    socket pps stream 0660 system system
-    group system graphics
-
 on property:init.svc.surfaceflinger=stopped
     stop ppd
 
@@ -585,46 +599,17 @@ service diag_mdlog_stop /system/bin/diag_mdlog -k
     disabled
     oneshot
 
-service qlogd /system/xbin/qlogd
-    class main
-    disabled
-
-on property:persist.sys.qlogd=1
-    start qlogd
-
-on property:persist.sys.qlogd=0
-    stop qlogd
-
 service ril-daemon1 /system/bin/rild -c 2
     class main
     socket rild2 stream 660 root radio
     socket rild-debug2 stream 660 radio system
     user root
     group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log
-    group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log
 
-service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
-    class late_start
-
-service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/sdcard1 /storage/sdcard1
-    class late_start
-    disabled
-
-service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/usbdisk /storage/usbdisk
-    class late_start
-    disabled
-
-service ssr_diag /system/bin/ssr_diag
-    class late_start
-    user system
-    group system
-    disabled
-
-service fingerprint /system/vendor/bin/fingerprint_client
-     class main
-     socket fpd stream 0666 system system
+service fingerprintd /system/bin/fingerprintd
+     class late_start
      user system
-     group system
+     group system input
 
 service testmode /sbin/testmode
      class late_start

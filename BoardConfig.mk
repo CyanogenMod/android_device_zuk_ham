@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2015 The CyanogenMod Project
+# Copyright (C) 2016 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -39,25 +39,31 @@ TARGET_CPU_SMP := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
 
 # Kernel
-BOARD_CUSTOM_BOOTIMG_MK := device/zuk/ham/mkbootimg.mk
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
-BOARD_KERNEL_TAGS_OFFSET := 0x01E00000
-BOARD_RAMDISK_OFFSET := 0x02000000
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000 --tags_offset 0x01e00000
+BOARD_DTBTOOL_ARGS := -2
 BOARD_KERNEL_SEPARATED_DT := true
 TARGET_KERNEL_ARCH := arm
 BOARD_KERNEL_CMDLINE := console=tty60,115200,n8 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x3b7 ehci-hcd.park=3 androidboot.bootdevice=msm_sdcc.1 vmalloc=480M
 TARGET_KERNEL_SOURCE := kernel/cyanogen/msm8974
-TARGET_KERNEL_CONFIG := cyanogenmod_k9_defconfig
+TARGET_KERNEL_CONFIG := chroma_defconfig
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-linux-androideabi-
 
 # Enable DIAG on debug builds
 ifneq ($(TARGET_BUILD_VARIANT),user)
 TARGET_KERNEL_ADDITIONAL_CONFIG:= cyanogenmod_debug_config
 endif
 
+# DT2W
+TARGET_TAP_TO_WAKE_NODE := "/sys/devices/virtual/touch/tp_dev/gesture_on"
+
+# QCOM Power (required for DT2W)
+TARGET_POWERHAL_VARIANT := qcom
 
 # QCOM
 BOARD_USES_QCOM_HARDWARE := true
+BOARD_USES_CYANOGEN_HARDWARE := true
 
 # Audio
 BOARD_USES_ALSA_AUDIO := true
@@ -76,9 +82,6 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/zuk/ham/bluetooth
 TARGET_USE_VENDOR_CAMERA_EXT := true
 USE_DEVICE_SPECIFIC_CAMERA := true
 
-# Charger
-BOARD_CHARGER_DISABLE_INIT_BLANK := true
-
 # CM Hardware
 BOARD_HARDWARE_CLASS += device/zuk/ham/cmhw
 
@@ -93,16 +96,19 @@ BOARD_USERDATAEXTRAIMAGE_PARTITION_SIZE := 59718467072
 BOARD_USERDATAEXTRAIMAGE_PARTITION_NAME := 64G
 BOARD_OEMIMAGE_PARTITION_SIZE      := 133169152
 
+# GPS
+USE_DEVICE_SPECIFIC_LOC_API := true
+USE_DEVICE_SPECIFIC_GPS := true
+
 # Graphics
 BOARD_EGL_CFG := device/zuk/ham/configs/egl.cfg
 USE_OPENGL_RENDERER := true
 TARGET_CONTINUOUS_SPLASH_ENABLED := true
-TARGET_USES_C2D_COMPOSITION := true
 TARGET_USES_ION := true
 OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
-HAVE_ADRENO_SOURCE:= false
 VSYNC_EVENT_PHASE_OFFSET_NS := 7500000
 SF_VSYNC_EVENT_PHASE_OFFSET_NS := 5000000
+TARGET_USE_COMPAT_GRALLOC_PERFORM := true
 
 # Shader cache config options
 # Maximum size of the  GLES Shaders that can be cached for reuse.
@@ -163,15 +169,10 @@ TARGET_RELEASETOOLS_EXTENSIONS := device/zuk/ham
 # Use HW crypto for ODE
 TARGET_HW_DISK_ENCRYPTION := true
 
-# Added to indicate that protobuf-c is supported in this build
-PROTOBUF_SUPPORTED := true
-
 # ANT+ - TODO: Confirm this - TODO: Confirm this - TODO: Confirm this - TODO: Confirm this
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 
-# Include an expanded selection of fonts
-EXTENDED_FONT_FOOTPRINT := true
-
+# Enable dexpreopt to reduce first boot time
 ifeq ($(HOST_OS),linux)
   ifeq ($(call match-word-in-list,$(TARGET_BUILD_VARIANT),user),true)
     ifeq ($(WITH_DEXPREOPT),)
@@ -180,14 +181,29 @@ ifeq ($(HOST_OS),linux)
   endif
 endif
 
-# inherit from the proprietary version
+# inherit from QC proprietary
 ifneq ($(QCPATH),)
 -include $(QCPATH)/common/msm8974/BoardConfigVendor.mk
 
+# QCNE
 ifeq ($(BOARD_USES_QCNE),true)
 TARGET_LDPRELOAD := libNimsWrap.so
 endif
 endif
+
+# TWRP
+DEVICE_RESOLUTION := 1080x1920
+RECOVERY_GRAPHICS_USE_LINELENGTH := true
+RECOVERY_SDCARD_ON_DATA := true
+BOARD_HAS_NO_REAL_SDCARD := true
+TW_TARGET_USES_QCOM_BSP := true
+TW_NO_USB_STORAGE := true
+TW_INCLUDE_CRYPTO := true
+BOARD_SUPPRESS_SECURE_ERASE := true
+TARGET_RECOVERY_PIXEL_FORMAT := "RGB_565"
+TARGET_USERIMAGES_USE_F2FS := true
+
+PRODUCT_COPY_FILES += device/zuk/ham/twrp.fstab:recovery/root/etc/twrp.fstab
 
 # SELinux policies
 # qcom sepolicy
@@ -195,8 +211,5 @@ include device/qcom/sepolicy/sepolicy.mk
 
 BOARD_SEPOLICY_DIRS += \
     device/zuk/ham/sepolicy
-
-BOARD_SEPOLICY_UNION += \
-    fingerprint.te
 
 -include vendor/zuk/ham/BoardConfigVendor.mk
