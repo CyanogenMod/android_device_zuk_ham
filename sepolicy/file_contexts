@@ -22,7 +22,10 @@
 /persist/fingerprintapp(/.*)?                                      u:object_r:fingerprint_persist_file:s0
 /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/enable_navi u:object_r:fingerprint_sysfs:s0
 /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/irq         u:object_r:fingerprint_sysfs:s0
-/dev/fpc1020                                                       u:object_r:fingerprint_device:s0
+/sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/key         u:object_r:fingerprint_sysfs:s0
+/sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/wakeup      u:object_r:fingerprint_sysfs:s0
+/sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/hw_reset    u:object_r:fingerprint_sysfs:s0
+/dev/fpc1020       u:object_r:fingerprint_device:s0
 
 # FRP
 /dev/block/bootdevice/by-name/frp               u:object_r:frp_block_device:s0
