@@ -9,6 +9,9 @@ persist.radio.apm_sim_not_pwdn=1
 ro.ril.ecclist=112,911,999,110,122,119,120,000,08,118,100,101,102,103
 persist.radio.custom_ecc=1
 
+# camera
+persist.camera.4k2k.enable=1
+
 # enable multisim
 persist.radio.multisim.config=dsds
 
