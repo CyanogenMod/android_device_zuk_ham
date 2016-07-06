@@ -256,7 +256,7 @@ on post-fs-data
 
     # custom ECC
     mkdir /data/misc/radio 0700 radio radio
-    exec /system/xbin/cp /vendor/etc/qcril.db /data/misc/radio/qcril.db
+    exec /system/bin/cp /vendor/etc/qcril.db /data/misc/radio/qcril.db
     chown radio radio /data/misc/radio/qcril.db
     chmod 700 /data/misc/radio/qcril.db
 
