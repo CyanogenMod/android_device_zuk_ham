@@ -120,22 +120,18 @@ on boot
     write /proc/sys/kernel/printk "6 6 1 7"
 
     # Fingerprint
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/adc_gain
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/adc_shift
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/capture_col_groups
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/capture_col_start
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/capture_count
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/capture_mode
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/capture_row_count
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/capture_row_start
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/capture_settings_mux
     chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/enable_navi
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/force_reset
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/gain_shift
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/input_mode
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/orientation
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/pixel_ctrl
-    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/pxl_ctrl
+    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/hw_reset
+    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/irq
+    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/key
+    chown system system /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/wakeup
+    chmod 0666 /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/enable_navi
+    chmod 0666 /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/hw_reset
+    chmod 0666 /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/irq
+    chmod 0666 /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/key
+    chmod 0666 /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/wakeup
+    write /sys/devices/f9927000.spi/spi_master/spi4/spi4.0/setup/wakeup 1
+    write /sys/deviceS/f9927000.spi/spi_master/spi4/spi4.0/setup/enable_navi 1
 
     # Lights
     chown system system /sys/class/leds/button-backlight/brightness
@@ -240,8 +236,23 @@ on post-fs-data
     mkdir /data/audio/ 0770 media audio
 
     # Touchscreen
-    chown system system /sys/devices/virtual/touch/tp_dev/gesture_on
-    chmod 0660 /sys/devices/virtual/touch/tp_dev/gesture_on
+    chown system radio /sys/devices/virtual/touch/tp_dev/gesture_on
+    chmod 0664 /sys/devices/virtual/touch/tp_dev/gesture_on
+
+    chown system system /sys/devices/virtual/graphics/fb0/aco
+    chmod 0660 /sys/devices/virtual/graphics/fb0/aco
+
+    chown system system /sys/devices/virtual/graphics/fb0/cabc
+    chmod 0660 /sys/devices/virtual/graphics/fb0/cabc
+
+    chown system system /sys/devices/virtual/graphics/fb0/color_enhance
+    chmod 0660 /sys/devices/virtual/graphics/fb0/color_enhance
+
+    chown system system /sys/devices/virtual/graphics/fb0/rgb
+    chmod 0660 /sys/devices/virtual/graphics/fb0/rgb
+
+    chown system system /sys/devices/virtual/graphics/fb0/sre
+    chmod 0660 /sys/devices/virtual/graphics/fb0/sre
 
     setprop vold.post_fs_data_done 1
 

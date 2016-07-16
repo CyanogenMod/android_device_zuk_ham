@@ -47,7 +47,7 @@ BOARD_KERNEL_SEPARATED_DT := true
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
 BOARD_DTBTOOL_ARGS := -2
 TARGET_KERNEL_ARCH := arm
-BOARD_KERNEL_CMDLINE := console=tty60,115200,n8 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x3b7 ehci-hcd.park=3 androidboot.bootdevice=msm_sdcc.1 vmalloc=480M
+BOARD_KERNEL_CMDLINE := console=tty60,115200,n8 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x3b7 ehci-hcd.park=3 androidboot.bootdevice=msm_sdcc.1 vmalloc=480M androidboot.selinux=permissive
 TARGET_KERNEL_SOURCE := kernel/cyanogen/msm8974
 TARGET_KERNEL_CONFIG := cyanogenmod_k9_defconfig
 
@@ -195,6 +195,20 @@ BOARD_USES_QCNE := true
 ifeq ($(BOARD_USES_QCNE),true)
 TARGET_LDPRELOAD := libNimsWrap.so
 endif
+
+# TWRP
+DEVICE_RESOLUTION := 1080x1920
+RECOVERY_GRAPHICS_USE_LINELENGTH := true
+RECOVERY_SDCARD_ON_DATA := true
+BOARD_HAS_NO_REAL_SDCARD := true
+TW_TARGET_USES_QCOM_BSP := true
+TW_NO_USB_STORAGE := true
+TW_INCLUDE_CRYPTO := true
+BOARD_SUPPRESS_SECURE_ERASE := true
+TARGET_RECOVERY_PIXEL_FORMAT := "RGB_565"
+TARGET_USERIMAGES_USE_F2FS := true
+
+PRODUCT_COPY_FILES += $(DEVICE_PATH)/twrp.fstab:recovery/root/etc/twrp.fstab
 
 # SELinux policies
 # qcom sepolicy
