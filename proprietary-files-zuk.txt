@@ -85,9 +85,6 @@
 -lib/hw/fingerprint.msm8974.so
 -lib/lib_fpc_tac_shared.so
 
-# Custom ECC
--vendor/etc/qcril.db
-
 # TFA9890
 etc/tfa98xx/TFA9890_N1B12_N1C3_v2.config
 etc/tfa98xx/TFA9890_N1C3_2_1_1.patch
