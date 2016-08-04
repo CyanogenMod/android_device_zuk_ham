@@ -79,6 +79,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
      audio.offload.pcm.16bit.enable=true \
      audio.offload.pcm.24bit.enable=true
 
+# First api level, device has been commercially launched
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.product.first_api_level=22
+
 # Camera
 PRODUCT_PACKAGES += \
     camera.msm8974 \
