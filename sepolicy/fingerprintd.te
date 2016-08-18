@@ -7,5 +7,9 @@ allow fingerprintd persist_file:dir search;
 allow fingerprintd fingerprint_persist_file:dir create_dir_perms;
 allow fingerprintd fingerprint_persist_file:file create_file_perms;
 
+# allow us to retrieve the sid since gatekeeper is not in TEE domain
+allow fingerprintd gatekeeper_service:service_manager find;
+allow fingerprintd gatekeeperd:binder call;
+
 allow fingerprintd firmware_file:file r_file_perms;
 allow fingerprintd firmware_file:dir r_dir_perms;
