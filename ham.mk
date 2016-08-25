@@ -69,6 +69,7 @@ PRODUCT_PACKAGES += \
     tinymix
 
 PRODUCT_PROPERTY_OVERRIDES += \
+     use.dedicated.device.for.voip=true \
      ro.config.vc_call_vol_steps=6 \
      audio_hal.period_size=192 \
      mm.enable.smoothstreaming=true \

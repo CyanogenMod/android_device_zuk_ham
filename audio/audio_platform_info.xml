@@ -6,6 +6,13 @@
     <device name="SND_DEVICE_IN_CAMCORDER_MIC" acdb_id="52"/>
     <device name="SND_DEVICE_IN_AANC_HEADSET_MIC" acdb_id="105"/>
     <device name="SND_DEVICE_IN_HANDSET_STEREO_DMIC" acdb_id="51"/>
+
+    <device name="SND_DEVICE_IN_VOIP_HANDSET_MIC" acdb_id="108"/>
+    <device name="SND_DEVICE_IN_VOIP_SPEAKER_MIC" acdb_id="114"/>
+    <device name="SND_DEVICE_IN_VOIP_HEADSET_MIC" acdb_id="47"/>
+    <device name="SND_DEVICE_OUT_VOIP_HANDSET" acdb_id="7"/>
+    <device name="SND_DEVICE_OUT_VOIP_SPEAKER" acdb_id="14"/>
+    <device name="SND_DEVICE_OUT_VOIP_HEADPHONES" acdb_id="10"/>
   </acdb_ids>
 
   <backend_names>
@@ -15,4 +22,13 @@
     <device name="SND_DEVICE_OUT_VOICE_SPEAKER" backend="smartpa" />
     <device name="SND_DEVICE_OUT_VOIP_SPEAKER" backend="smartpa" />
   </backend_names>
+
+  <device_names>
+    <device name="SND_DEVICE_IN_VOIP_HANDSET_MIC" alias="handset-mic"/>
+    <device name="SND_DEVICE_IN_VOIP_SPEAKER_MIC" alias="speaker-mic"/>
+    <device name="SND_DEVICE_IN_VOIP_HEADSET_MIC" alias="headset-mic"/>
+    <device name="SND_DEVICE_OUT_VOIP_HANDSET" alias="handset"/>
+    <device name="SND_DEVICE_OUT_VOIP_SPEAKER" alias="speaker"/>
+    <device name="SND_DEVICE_OUT_VOIP_HEADPHONES" alias="headphones"/>
+  </device_names>
 </audio_platform_info>
