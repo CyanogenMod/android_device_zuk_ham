@@ -69,7 +69,6 @@ PRODUCT_PACKAGES += \
     tinymix
 
 PRODUCT_PROPERTY_OVERRIDES += \
-     audio_hal.period_size=192 \
      mm.enable.smoothstreaming=true \
      ro.qc.sdk.audio.fluencetype=fluence \
      persist.audio.fluence.voicecall=true \
