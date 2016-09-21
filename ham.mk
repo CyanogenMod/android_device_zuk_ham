@@ -228,10 +228,6 @@ PRODUCT_PACKAGES += \
     com.dsi.ant.antradio_library \
     libantradio
 
-# Enable USB OTG interface
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.sys.isUsbOtgEnabled=true
-
 # Enable Bluetooth HFP
 PRODUCT_PROPERTY_OVERRIDES += \
     bluetooth.hfp.client=1
