@@ -256,7 +256,7 @@ typedef struct {
 
 /** Represents SV status. */
 typedef struct {
-    /** set to sizeof(GnssSvStatus) */
+    /** set to sizeof(HaxxSvStatus) */
     size_t          size;
 
     /** Number of SVs currently visible. */
@@ -293,7 +293,7 @@ typedef struct {
      */
     uint64_t    bds_used_in_fix_mask;
 
-} GnssSvStatus;
+} HaxxSvStatus;
 
 enum loc_sess_status {
     LOC_SESS_SUCCESS,
@@ -378,6 +378,7 @@ enum loc_api_adapter_event_index {
     LOC_API_ADAPTER_GDT_UPLOAD_END_REQ,                // GDT upload end request
     LOC_API_ADAPTER_GNSS_MEASUREMENT,                  // GNSS Measurement report
     LOC_API_ADAPTER_REQUEST_TIMEZONE,                  // Timezone injection request
+    LOC_API_ADAPTER_REPORT_GENFENCE_DWELL_REPORT,      // Geofence dwell report
     LOC_API_ADAPTER_EVENT_MAX
 };
 
@@ -407,6 +408,7 @@ enum loc_api_adapter_event_index {
 #define LOC_API_ADAPTER_BIT_GDT_UPLOAD_END_REQ               (1<<LOC_API_ADAPTER_GDT_UPLOAD_END_REQ)
 #define LOC_API_ADAPTER_BIT_GNSS_MEASUREMENT                 (1<<LOC_API_ADAPTER_GNSS_MEASUREMENT)
 #define LOC_API_ADAPTER_BIT_REQUEST_TIMEZONE                 (1<<LOC_API_ADAPTER_REQUEST_TIMEZONE)
+#define LOC_API_ADAPTER_BIT_REPORT_GENFENCE_DWELL            (1<<LOC_API_ADAPTER_REPORT_GENFENCE_DWELL_REPORT)
 
 typedef unsigned int LOC_API_ADAPTER_EVENT_MASK_T;
 

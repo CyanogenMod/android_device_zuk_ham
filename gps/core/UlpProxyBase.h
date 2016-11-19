@@ -30,12 +30,9 @@
 #define ULP_PROXY_BASE_H
 
 #include <gps_extended.h>
-#ifndef OSS_BUILD
-#include "fused_location_extended.h"
-#else
-struct FlpExtLocation;
+
+struct FlpExtLocation_s;
 struct FlpExtBatchOptions;
-#endif
 
 namespace loc_core {
 
@@ -64,7 +61,7 @@ public:
                                        LocPosTechMask loc_technology_mask) {
         return false;
     }
-    inline virtual bool reportSv(GnssSvStatus &svStatus,
+    inline virtual bool reportSv(HaxxSvStatus &svStatus,
                                  GpsLocationExtended &locationExtended,
                                  void* svExt) {
         return false;
@@ -78,7 +75,7 @@ public:
                                               bool active) {
         return false;
     }
-    inline virtual bool reportPositions(const FlpExtLocation* locations,
+    inline virtual bool reportPositions(const struct FlpExtLocation_s* locations,
                                         int32_t number_of_locations) {
         return false;
     }
