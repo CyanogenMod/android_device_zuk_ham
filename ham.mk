@@ -84,7 +84,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
      tunnel.audio.encode=true \
      media.aac_51_output_enabled=true \
      audio.offload.pcm.16bit.enable=true \
-     audio.offload.pcm.24bit.enable=true
+     audio.offload.pcm.24bit.enable=true \
+     media.stagefright.legacyencoder=true \
+     media.stagefright.less-secure=true
 
 # First api level, device has been commercially launched
 PRODUCT_PROPERTY_OVERRIDES += \
