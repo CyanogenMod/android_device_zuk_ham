@@ -192,12 +192,6 @@ ifneq ($(QCPATH),)
 -include $(QCPATH)/common/msm8974/BoardConfigVendor.mk
 endif
 
-BOARD_USES_QCNE := true
-
-ifeq ($(BOARD_USES_QCNE),true)
-TARGET_LDPRELOAD := libNimsWrap.so
-endif
-
 # SELinux policies
 # qcom sepolicy
 include device/qcom/sepolicy/sepolicy.mk
