@@ -155,6 +155,7 @@ TARGET_PROVIDES_LIBLIGHT := true
 TARGET_NO_RPC := true
 
 # GPS HAL lives here
+BOARD_VENDOR_QCOM_LOC_PDK_FEATURE_SET := true
 USE_DEVICE_SPECIFIC_GPS := true
 USE_DEVICE_SPECIFIC_LOC_API := true
 
@@ -190,12 +191,10 @@ endif
 # inherit from the proprietary version
 ifneq ($(QCPATH),)
 -include $(QCPATH)/common/msm8974/BoardConfigVendor.mk
-endif
-
-BOARD_USES_QCNE := true
 
 ifeq ($(BOARD_USES_QCNE),true)
 TARGET_LDPRELOAD := libNimsWrap.so
+endif
 endif
 
 # SELinux policies
